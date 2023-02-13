@@ -1,15 +1,24 @@
 package com.game.jumper
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.game.jumper.Graphics.JumperGLSurfaceView
+import android.view.WindowInsets
+import android.view.WindowInsetsController
+import android.view.WindowManager
+import com.game.jumper.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
-    lateinit var glView : JumperGLSurfaceView
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var game : Game
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        glView = JumperGLSurfaceView(this)
+        binding = ActivityMainBinding.inflate(layoutInflater)
 
-        setContentView(glView)
+        game = Game(this)
+        setContentView(game)
+        //setContentView(binding.root)
+
     }
 }
