@@ -6,11 +6,13 @@ import android.graphics.Paint
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import androidx.core.content.ContextCompat
+import com.game.jumper.engine.GameLoop
 
 /**
  * Manages all objects in the game and is responsible for updating all states and render
  * all objects to the screen
  */
+// DEPRECATED
 class Game(context: Context) : SurfaceView(context), SurfaceHolder.Callback {
     private val gameLoop: GameLoop
     private val context: Context

@@ -1,10 +1,9 @@
 package com.game.jumper.Graphics
 
-import android.content.res.Resources
 import android.opengl.GLES20
 import android.opengl.GLSurfaceView
 import android.opengl.Matrix
-import com.game.jumper.GameLoopGl
+import com.game.jumper.engine.GameLoopGl
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
 

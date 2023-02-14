@@ -1,13 +1,8 @@
-package com.game.jumper
+package com.game.jumper.engine
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Paint
 import android.opengl.GLSurfaceView
 import android.util.AttributeSet
-import android.view.SurfaceHolder
-import android.view.SurfaceView
-import androidx.core.content.ContextCompat
 import com.game.jumper.Graphics.JumperGLRenderer
 
 /**

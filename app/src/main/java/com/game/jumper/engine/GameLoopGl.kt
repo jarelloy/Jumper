@@ -1,6 +1,6 @@
-package com.game.jumper
+package com.game.jumper.engine
 
-import android.graphics.Canvas
+import android.util.Log
 import android.view.SurfaceHolder
 import com.game.jumper.Graphics.JumperGLRenderer
 
@@ -62,6 +62,8 @@ class GameLoopGl(var renderer: JumperGLRenderer, private val surfaceHolder: Surf
                 updateCount = 0
                 frameCount = 0
                 startTime = System.currentTimeMillis()
+                Log.d("Average UPS: ", averageUPS.toString())
+                Log.d("Average FPS: ", averageFPS.toString())
             }
         }
     }
@@ -69,5 +71,6 @@ class GameLoopGl(var renderer: JumperGLRenderer, private val surfaceHolder: Surf
     companion object {
         private const val MAX_UPS = 60.0
         private const val UPS_PERIOD = 1E+3 / MAX_UPS
+        var deltaTime : Float = 0F
     }
 }

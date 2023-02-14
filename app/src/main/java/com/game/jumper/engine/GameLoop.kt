@@ -1,7 +1,8 @@
-package com.game.jumper
+package com.game.jumper.engine
 
 import android.graphics.Canvas
 import android.view.SurfaceHolder
+import com.game.jumper.Game
 
 class GameLoop(var game: Game, private val surfaceHolder: SurfaceHolder) : Thread() {
     private var isRunning = false

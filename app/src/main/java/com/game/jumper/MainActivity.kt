@@ -1,13 +1,10 @@
 package com.game.jumper
 
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.WindowInsets
-import android.view.WindowInsetsController
-import android.view.WindowManager
 import com.game.jumper.databinding.ActivityMainBinding
 import com.game.jumper.Graphics.JumperGLSurfaceView
+import com.game.jumper.engine.GameGl
 
 
 class MainActivity : AppCompatActivity() {

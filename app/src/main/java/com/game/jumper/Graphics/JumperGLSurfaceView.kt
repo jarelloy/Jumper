@@ -3,7 +3,7 @@ package com.game.jumper.Graphics
 import android.content.Context
 import android.opengl.GLSurfaceView
 import android.util.AttributeSet
-import com.game.jumper.GameLoopGl
+import com.game.jumper.engine.GameLoopGl
 
 open class JumperGLSurfaceView : GLSurfaceView {
 
