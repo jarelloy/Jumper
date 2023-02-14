@@ -18,6 +18,15 @@ open class JumperQuad {
     )
     val quadColor: FloatArray = floatArrayOf(1.0f, 0.0f, 0.0f, 1.0f) // red
 
+    lateinit var texBuffer: FloatBuffer
+    val texCoords: FloatArray = floatArrayOf(
+        0.0f, 0.0f,
+        1.0f, 0.0f,
+        1.0f, 1.0f,
+        0.0f, 1.0f
+    )
+    var texture: IntArray = IntArray(1)
+
     constructor() {
         val byteBuffer: ByteBuffer = ByteBuffer.allocateDirect(
             quadCoords.size * 4 // 4 bytes per float
@@ -43,16 +52,23 @@ open class JumperQuad {
 
     var posHandle: Int = 0
     var colHandle: Int = 0
+    private var vPMatrixHandle: Int = 0
 
     val vtxCount: Int = quadCoords.size / coordsPerVtx
     val vtxStride: Int = coordsPerVtx * 4
 
-    fun draw() {
+    fun draw(mvpMatrix: FloatArray) {
         GLES20.glUseProgram(shaderProgram)
 
         GLES20.glEnableVertexAttribArray(posHandle)
 
         GLES20.glVertexAttribPointer(posHandle, coordsPerVtx, GLES20.GL_FLOAT, false, vtxStride, vtxBuffer)
+
+        // get handle to shape's transformation matrix
+        vPMatrixHandle = GLES20.glGetUniformLocation(shaderProgram, "uMVPMatrix")
+
+        // Pass the projection and view transformation to the shader
+        GLES20.glUniformMatrix4fv(vPMatrixHandle, 1, false, mvpMatrix, 0)
 
         colHandle = GLES20.glGetUniformLocation(shaderProgram, "vColor")
 
