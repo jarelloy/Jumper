@@ -58,24 +58,45 @@ open class JumperQuad {
     val vtxStride: Int = coordsPerVtx * 4
 
     fun draw(mvpMatrix: FloatArray) {
+
+        // Add program to OpenGL ES environment
         GLES20.glUseProgram(shaderProgram)
 
-        GLES20.glEnableVertexAttribArray(posHandle)
+        // get handle to vertex shader's vPosition member
+        posHandle = GLES20.glGetAttribLocation(shaderProgram, "vPosition").also {
 
-        GLES20.glVertexAttribPointer(posHandle, coordsPerVtx, GLES20.GL_FLOAT, false, vtxStride, vtxBuffer)
+            // Enable a handle to the triangle vertices
+            GLES20.glEnableVertexAttribArray(it)
 
-        // get handle to shape's transformation matrix
-        vPMatrixHandle = GLES20.glGetUniformLocation(shaderProgram, "uMVPMatrix")
+            // Prepare the triangle coordinate data
+            GLES20.glVertexAttribPointer(
+                it,
+                coordsPerVtx,
+                GLES20.GL_FLOAT,
+                false,
+                vtxStride,
+                vtxBuffer
+            )
 
-        // Pass the projection and view transformation to the shader
-        GLES20.glUniformMatrix4fv(vPMatrixHandle, 1, false, mvpMatrix, 0)
+            // get handle to shape's transformation matrix
+            vPMatrixHandle = GLES20.glGetUniformLocation(shaderProgram, "uMVPMatrix").also { matrixHandle ->
 
-        colHandle = GLES20.glGetUniformLocation(shaderProgram, "vColor")
+                // Pass the projection and view transformation to the shader
+                GLES20.glUniformMatrix4fv(matrixHandle, 1, false, mvpMatrix, 0)
+            }
 
-        GLES20.glUniform4fv(colHandle, 1, quadColor, 0)
+            // get handle to fragment shader's vColor member
+            colHandle = GLES20.glGetUniformLocation(shaderProgram, "vColor").also { colorHandle ->
 
-        GLES20.glDrawArrays(GLES20.GL_TRIANGLE_FAN, 0, vtxCount)
+                // Set color for drawing the triangle
+                GLES20.glUniform4fv(colorHandle, 1, quadColor, 0)
+            }
 
-        GLES20.glDisableVertexAttribArray(posHandle)
+            // Draw the triangle
+            GLES20.glDrawArrays(GLES20.GL_TRIANGLE_FAN, 0, vtxCount)
+
+            // Disable vertex array
+            GLES20.glDisableVertexAttribArray(it)
+        }
     }
 }
