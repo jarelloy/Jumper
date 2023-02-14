@@ -15,6 +15,7 @@ open class JumperGLSurfaceView : GLSurfaceView {
         surfaceHolder.addCallback(this)
         renderer = JumperGLRenderer()
         gameLoop = GameLoopGl(renderer, surfaceHolder)
+        renderer.loadGameLoop(gameLoop)
         initOpenGLView()
     }
 
@@ -23,6 +24,7 @@ open class JumperGLSurfaceView : GLSurfaceView {
         surfaceHolder.addCallback(this)
         renderer = JumperGLRenderer()
         gameLoop = GameLoopGl(renderer, surfaceHolder)
+        renderer.loadGameLoop(gameLoop)
         initOpenGLView()
     }
 
