@@ -6,17 +6,6 @@ import java.nio.ByteOrder
 import java.nio.FloatBuffer
 
 open class JumperQuad {
-    val vtxShaderCode: String =
-        "attribute vec4 vPos;" +
-        "void main() {" +
-            "gl_Position = vPos;" +
-        "}"
-    val fragShaderCode: String =
-        "precision mediump float;" +
-        "uniform vec4 vColor;" +
-        "void main() {" +
-            "gl_FragColor = vColor;" +
-        "}"
     var shaderProgram: Int = 0
 
     var vtxBuffer: FloatBuffer
@@ -43,8 +32,8 @@ open class JumperQuad {
         vtxBuffer.position(0)
 
         // handle shader
-        val vtxShader: Int = JumperGLRenderer.loadShader(GLES20.GL_VERTEX_SHADER, vtxShaderCode)
-        val fragShader: Int = JumperGLRenderer.loadShader(GLES20.GL_FRAGMENT_SHADER, fragShaderCode)
+        val vtxShader: Int = JumperGLRenderer.loadShader(GLES20.GL_VERTEX_SHADER, JumperShaderCode.vtxShaderCode)
+        val fragShader: Int = JumperGLRenderer.loadShader(GLES20.GL_FRAGMENT_SHADER, JumperShaderCode.fragShaderCode)
 
         shaderProgram = GLES20.glCreateProgram()
         GLES20.glAttachShader(shaderProgram, vtxShader)
