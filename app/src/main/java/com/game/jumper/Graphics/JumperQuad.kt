@@ -52,7 +52,7 @@ open class JumperQuad {
 
     var posHandle: Int = 0
     var colHandle: Int = 0
-    private var vPMatrixHandle: Int = 0
+    var vPMatrixHandle: Int = 0
 
     val vtxCount: Int = quadCoords.size / coordsPerVtx
     val vtxStride: Int = coordsPerVtx * 4
