@@ -17,7 +17,7 @@ class GameGl : GLSurfaceView {
         val surfaceHolder = holder
         surfaceHolder.addCallback(this)
         renderer = JumperGLRenderer()
-        gameLoop = GameLoopGl(renderer, surfaceHolder)
+        gameLoop = GameLoopGl(context, renderer, surfaceHolder)
         renderer.loadGameLoop(gameLoop)
         isFocusable = true
         initOpenGLView()
@@ -27,7 +27,7 @@ class GameGl : GLSurfaceView {
         val surfaceHolder = holder
         surfaceHolder.addCallback(this)
         renderer = JumperGLRenderer()
-        gameLoop = GameLoopGl(renderer, surfaceHolder)
+        gameLoop = GameLoopGl(context, renderer, surfaceHolder)
         renderer.loadGameLoop(gameLoop)
         isFocusable = true
         initOpenGLView()
