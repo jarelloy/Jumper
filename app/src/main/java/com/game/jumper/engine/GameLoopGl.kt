@@ -4,8 +4,13 @@ import android.content.Context
 import android.util.Log
 import android.view.SurfaceHolder
 import com.game.jumper.Graphics.JumperGLRenderer
+import com.game.jumper.motionSensor.MotionSensorListener
 
 class GameLoopGl(context: Context, var renderer: JumperGLRenderer, private val surfaceHolder: SurfaceHolder) : Thread() {
+
+    private val gyroscopeRotationTracker = MotionSensorListener(context)
+    private var currentRotation = gyroscopeRotationTracker.getCurrentRotation()
+
     private var isRunning = false
     //private var scene = Scene()
     var averageUPS // Updates per second
@@ -15,6 +20,7 @@ class GameLoopGl(context: Context, var renderer: JumperGLRenderer, private val s
         private set
 
     fun startLoop() {
+        gyroscopeRotationTracker.start()
         isRunning = true
         start()
     }
@@ -38,6 +44,7 @@ class GameLoopGl(context: Context, var renderer: JumperGLRenderer, private val s
             renderer.draw()
             frameCount++
 
+            currentRotation = gyroscopeRotationTracker.getCurrentRotation()
 
             // Pause game loop to not exceed target UPS
             elapsedTime = System.currentTimeMillis() - startTime

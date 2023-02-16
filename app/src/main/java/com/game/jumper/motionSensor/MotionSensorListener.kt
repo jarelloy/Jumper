@@ -7,55 +7,117 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.util.Log
 import kotlin.math.abs
+import kotlin.math.atan2
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 class MotionSensorListener(context: Context) : SensorEventListener {
-
     private val sensorManager: SensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
-    private val gyroscopeSensor: Sensor? = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE)
+    private val accelerometer: Sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+    private val gyroscope: Sensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE)
 
-    private var previousReading: Float = 0f
-    private var currentRotation = 0
+    private val rotationMatrix = FloatArray(9)
+    private val orientation = FloatArray(3)
+    private var currentRotation: Int = 0
+    private var currentPitch: Float = 0f
+    private var currentRoll: Float = 0f
+    private var currentYaw: Float = 0f
+    private var lastTimestamp: Long = 0
 
     private val tag = "SensorReading"
 
-    fun start() {
-        gyroscopeSensor?.also { sensor ->
-            sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL)
+    init {
+        sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL)
+        sensorManager.registerListener(this, gyroscope, SensorManager.SENSOR_DELAY_NORMAL)
+    }
+
+    override fun onSensorChanged(event: SensorEvent?) {
+        when (event?.sensor?.type) {
+            Sensor.TYPE_ACCELEROMETER -> {
+                val alpha = 0.8f
+                val gravity = FloatArray(3)
+                val linearAcceleration = FloatArray(3)
+
+                // Remove gravity from the accelerometer readings using a high-pass filter
+                gravity[0] = alpha * gravity[0] + (1 - alpha) * event.values[0]
+                gravity[1] = alpha * gravity[1] + (1 - alpha) * event.values[1]
+                gravity[2] = alpha * gravity[2] + (1 - alpha) * event.values[2]
+                linearAcceleration[0] = event.values[0] - gravity[0]
+                linearAcceleration[1] = event.values[1] - gravity[1]
+                linearAcceleration[2] = event.values[2] - gravity[2]
+
+                // Calculate pitch and roll angles using the accelerometer readings
+                currentPitch = atan2(
+                    linearAcceleration[1],
+                    sqrt(linearAcceleration[0].pow(2) + linearAcceleration[2].pow(2))
+                )
+                currentRoll = atan2(
+                    linearAcceleration[0],
+                    sqrt(linearAcceleration[1].pow(2) + linearAcceleration[2].pow(2))
+                )
+            }
+            Sensor.TYPE_GYROSCOPE -> {
+                if (lastTimestamp != 0L) {
+                    val dt = (event.timestamp - lastTimestamp) * NS2S
+
+                    // Calculate the change in rotation based on the gyroscope readings
+                    val omegaMagnitude = sqrt(
+                        event.values[0].pow(2) + event.values[1].pow(2) + event.values[2].pow(
+                            2
+                        )
+                    )
+                    if (omegaMagnitude > 0.1f) {
+                        event.values.forEachIndexed { index, value ->
+                            event.values[index] = value / omegaMagnitude
+                        }
+                        SensorManager.getRotationMatrixFromVector(rotationMatrix, event.values)
+                        SensorManager.getOrientation(rotationMatrix, orientation)
+
+                        // Calculate yaw angle using the gyroscope and magnetometer readings
+                        currentYaw = Math.toDegrees(orientation[0].toDouble()).toFloat()
+
+                        // Calculate current rotation based on the pitch and roll angles
+                        currentRotation = ((currentRoll.toDegrees() + 90) % 180).toInt()
+                    }
+                }
+            }
         }
+        lastTimestamp = event?.timestamp ?: lastTimestamp
+
+        Log.d (tag, "Current Rotation: $currentRotation, Roll: ${currentRoll.toDegrees()}, Pitch: ${currentPitch.toDegrees()}, Yaw: $currentYaw")
+    }
+
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
+    fun start() {
+        sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL)
+        sensorManager.registerListener(this, gyroscope, SensorManager.SENSOR_DELAY_NORMAL)
     }
 
     fun stop() {
         sensorManager.unregisterListener(this)
     }
 
-    override fun onSensorChanged(event: SensorEvent) {
-        if (event.sensor.type == Sensor.TYPE_GYROSCOPE) {
-            // Get the values of the gyroscope sensor readings
-            val currentReading = event.values[2]
-
-            // Calculate the difference in the gyroscope sensor readings from the previous reading
-            val delta = currentReading - previousReading
-
-            // Check if the difference in the gyroscope sensor readings is large enough to be considered a rotation
-            if (abs(delta) > 0.5f) {
-                // Determine the direction of the rotation based on the sign of the difference in the gyroscope sensor readings
-                val direction = if (delta > 0) "Right" else "Left"
-
-                currentRotation = (currentRotation + delta.toInt() * 3) % 360
-                // Do something with the rotation direction (e.g., update the UI)
-                // ...
-
-                // Update the previous gyroscope sensor reading
-                previousReading = currentReading
-
-                Log.d(tag, "Direction: $direction, Current Reading: $currentReading")
-            }
-        }
-    }
-
-    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
-
     fun getCurrentRotation(): Int {
         return currentRotation
+    }
+
+    fun getCurrentPitch(): Float {
+        return currentPitch.toDegrees()
+    }
+
+    fun getCurrentRoll(): Float {
+        return currentRoll.toDegrees()
+    }
+
+    fun getCurrentYaw(): Float {
+        return currentYaw
+    }
+
+    private fun Float.toDegrees(): Float {
+        return Math.toDegrees(this.toDouble()).toFloat()
+    }
+
+    companion object {
+        private const val NS2S = 1.0f / 1000000000.0f
     }
 }

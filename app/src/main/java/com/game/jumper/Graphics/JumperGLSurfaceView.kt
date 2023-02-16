@@ -14,7 +14,7 @@ open class JumperGLSurfaceView : GLSurfaceView {
         val surfaceHolder = holder
         surfaceHolder.addCallback(this)
         renderer = JumperGLRenderer()
-        gameLoop = GameLoopGl(renderer, surfaceHolder)
+        gameLoop = GameLoopGl(context, renderer, surfaceHolder)
         renderer.loadGameLoop(gameLoop)
         initOpenGLView()
     }
@@ -23,7 +23,7 @@ open class JumperGLSurfaceView : GLSurfaceView {
         val surfaceHolder = holder
         surfaceHolder.addCallback(this)
         renderer = JumperGLRenderer()
-        gameLoop = GameLoopGl(renderer, surfaceHolder)
+        gameLoop = GameLoopGl(context, renderer, surfaceHolder)
         renderer.loadGameLoop(gameLoop)
         initOpenGLView()
     }
