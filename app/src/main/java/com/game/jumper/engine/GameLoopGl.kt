@@ -1,11 +1,13 @@
 package com.game.jumper.engine
 
+import android.content.Context
 import android.util.Log
 import android.view.SurfaceHolder
 import com.game.jumper.Graphics.JumperGLRenderer
 
-class GameLoopGl(var renderer: JumperGLRenderer, private val surfaceHolder: SurfaceHolder) : Thread() {
+class GameLoopGl(context: Context, var renderer: JumperGLRenderer, private val surfaceHolder: SurfaceHolder) : Thread() {
     private var isRunning = false
+    //private var scene = Scene()
     var averageUPS // Updates per second
             = 0.0
         private set
@@ -29,7 +31,9 @@ class GameLoopGl(var renderer: JumperGLRenderer, private val surfaceHolder: Surf
         // Game loop
         startTime = System.currentTimeMillis()
         while (isRunning) {
+            //scene.update()
             renderer.update()
+
             updateCount++
             renderer.draw()
             frameCount++
