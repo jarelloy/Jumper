@@ -4,6 +4,7 @@ import android.content.Context
 import android.opengl.GLSurfaceView
 import android.util.AttributeSet
 import com.game.jumper.Graphics.JumperGLRenderer
+import com.game.jumper.motionSensor.MotionSensorListener
 
 /**
  * Manages all objects in the game and is responsible for updating all states and render
@@ -21,6 +22,7 @@ class GameGl : GLSurfaceView {
         renderer.loadGameLoop(gameLoop)
         isFocusable = true
         initOpenGLView()
+
     }
 
     constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) {

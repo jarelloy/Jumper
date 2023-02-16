@@ -3,10 +3,12 @@ package com.game.jumper
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.util.Log
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import androidx.core.content.ContextCompat
 import com.game.jumper.engine.GameLoop
+import com.game.jumper.motionSensor.MotionSensorListener
 
 /**
  * Manages all objects in the game and is responsible for updating all states and render
