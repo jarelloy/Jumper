@@ -1,15 +1,20 @@
 package com.game.jumper.graphics
 
+import android.content.Context
+import android.graphics.BitmapFactory
 import android.opengl.GLES20
 import android.opengl.GLSurfaceView
+import android.opengl.GLUtils
 import android.opengl.Matrix
 import com.game.jumper.engine.GameLoopGl
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
 
-open class JumperGLRenderer() : GLSurfaceView.Renderer {
+open class JumperGLRenderer(context: Context) : GLSurfaceView.Renderer {
     lateinit var mQuad: JumperQuad
     lateinit var gameLoopGl: GameLoopGl
+
+    var gameContext: Context = context
 
     private val vPMatrix = FloatArray(16)
     private val projectionMatrix = FloatArray(16)
@@ -34,8 +39,8 @@ open class JumperGLRenderer() : GLSurfaceView.Renderer {
 
     override fun onSurfaceCreated(gl: GL10?, config: EGLConfig?) {
         // set bg color to black
-        GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f)
-        mQuad = JumperQuad()
+        GLES20.glClearColor(0.5f, 0.5f, 0.5f, 1.0f)
+        mQuad = JumperQuad(gameContext, "art/BPlayer_Idle.png")
         gameLoopGl.startLoop()
     }
 
@@ -57,14 +62,14 @@ open class JumperGLRenderer() : GLSurfaceView.Renderer {
         // Calculate the projection and view transformation
         Matrix.multiplyMM(vPMatrix, 0, projectionMatrix, 0, viewMatrix, 0)
 
-        mQuad.draw(vPMatrix)
+        mQuad.drawTextured(vPMatrix)
     }
 
     fun draw()
     {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT)
 
-        mQuad.draw(vPMatrix)
+        mQuad.drawTextured(vPMatrix)
     }
 
     fun update()
