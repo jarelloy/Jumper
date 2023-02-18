@@ -3,7 +3,7 @@ package com.game.jumper.engine
 import android.content.Context
 import android.util.Log
 import android.view.SurfaceHolder
-import com.game.jumper.Graphics.JumperGLRenderer
+import com.game.jumper.graphics.JumperGLRenderer
 
 class GameLoopGl(context: Context, var renderer: JumperGLRenderer, private val surfaceHolder: SurfaceHolder) : Thread() {
     private var isRunning = false
