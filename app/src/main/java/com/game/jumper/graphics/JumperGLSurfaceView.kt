@@ -1,4 +1,4 @@
-package com.game.jumper.Graphics
+package com.game.jumper.graphics
 
 import android.content.Context
 import android.opengl.GLSurfaceView
@@ -13,7 +13,7 @@ open class JumperGLSurfaceView : GLSurfaceView {
     constructor(context: Context) : super(context) {
         val surfaceHolder = holder
         surfaceHolder.addCallback(this)
-        renderer = JumperGLRenderer()
+        renderer = JumperGLRenderer(context)
         gameLoop = GameLoopGl(context, renderer, surfaceHolder)
         renderer.loadGameLoop(gameLoop)
         initOpenGLView()
@@ -22,7 +22,7 @@ open class JumperGLSurfaceView : GLSurfaceView {
     constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) {
         val surfaceHolder = holder
         surfaceHolder.addCallback(this)
-        renderer = JumperGLRenderer()
+        renderer = JumperGLRenderer(context)
         gameLoop = GameLoopGl(context, renderer, surfaceHolder)
         renderer.loadGameLoop(gameLoop)
         initOpenGLView()

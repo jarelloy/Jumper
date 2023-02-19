@@ -7,7 +7,7 @@ import android.hardware.SensorManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.game.jumper.databinding.ActivityMainBinding
-import com.game.jumper.Graphics.JumperGLSurfaceView
+import com.game.jumper.graphics.JumperGLSurfaceView
 import com.game.jumper.engine.GameGl
 
 
