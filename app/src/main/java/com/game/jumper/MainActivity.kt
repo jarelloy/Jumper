@@ -19,10 +19,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        game = GameGl(this)
-        glSurfaceView = JumperGLSurfaceView(this)
-        setContentView(game)
+        binding.playgameBtn.setOnClickListener {
+            game = GameGl(this)
+            glSurfaceView = JumperGLSurfaceView(this)
+            setContentView(game)
+        }
+
         //setContentView(binding.root)
 
     }
