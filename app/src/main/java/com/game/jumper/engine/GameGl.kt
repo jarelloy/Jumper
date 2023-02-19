@@ -3,7 +3,7 @@ package com.game.jumper.engine
 import android.content.Context
 import android.opengl.GLSurfaceView
 import android.util.AttributeSet
-import com.game.jumper.Graphics.JumperGLRenderer
+import com.game.jumper.graphics.JumperGLRenderer
 import com.game.jumper.motionSensor.MotionSensorListener
 
 /**
