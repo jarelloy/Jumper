@@ -84,7 +84,7 @@ class MotionSensorListener(context: Context) : SensorEventListener {
         }
         lastTimestamp = event?.timestamp ?: lastTimestamp
 
-        Log.d (tag, "Current Rotation: $currentRotation, Roll: ${currentRoll.toDegrees()}, Pitch: ${currentPitch.toDegrees()}, Yaw: $currentYaw")
+        //Log.d (tag, "Current Rotation: $currentRotation, Roll: ${currentRoll.toDegrees()}, Pitch: ${currentPitch.toDegrees()}, Yaw: $currentYaw")
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
