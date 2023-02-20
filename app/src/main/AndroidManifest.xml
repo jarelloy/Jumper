@@ -26,6 +26,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:label="Scoreboard"
+            android:name=".layout.ScoreboardActivity"
+            android:exported="true">
+        </activity>
+
+        <activity
+            android:label="Instruction"
+            android:name=".layout.InstructionActivity"
+            android:exported="true">
+        </activity>
+
+        <activity
+            android:label="Customize Player"
+            android:name=".layout.CustomizePlayerActivity"
+            android:exported="true">
+        </activity>
+
     </application>
 
 </manifest>

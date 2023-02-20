@@ -4,6 +4,8 @@
     <string name="howtoplayBtn">How To Play</string>
     <string name="scoreboardBtn">Scoreboard</string>
     <string name="scoreboardText">Scoreboard</string>
+    <string name="scoreboardNameText">Name</string>
+    <string name="scoreboardScoreText">Score</string>
     <string name="customize_playerBtn">Customize Player</string>
     <string name="exitBtn">Exit Game</string>
     <string name="selectBtn">Select</string>
