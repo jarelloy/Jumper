@@ -32,6 +32,5 @@ open class JumperGLSurfaceView : GLSurfaceView {
         setEGLContextClientVersion(2)
         setPreserveEGLContextOnPause(true)
         setRenderer(renderer)
-        setRenderMode(RENDERMODE_WHEN_DIRTY)
     }
 }

@@ -40,7 +40,12 @@ open class JumperGLRenderer(context: Context) : GLSurfaceView.Renderer {
     override fun onSurfaceCreated(gl: GL10?, config: EGLConfig?) {
         // set bg color to black
         GLES20.glClearColor(0.5f, 0.5f, 0.5f, 1.0f)
+
+        // load textured quads here
+        // first param is gameContext
+        // second param is texture path - "art/idle.png"
         mQuad = JumperQuad(gameContext, "art/BPlayer_Idle.png")
+
         gameLoopGl.startLoop()
     }
 
@@ -69,6 +74,7 @@ open class JumperGLRenderer(context: Context) : GLSurfaceView.Renderer {
     {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT)
 
+        // JumperQuad has 2 draw functions - draw and drawTextured
         mQuad.drawTextured(vPMatrix)
     }
 
