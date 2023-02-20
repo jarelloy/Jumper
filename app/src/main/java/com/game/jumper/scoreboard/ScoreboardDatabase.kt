@@ -1,6 +1,6 @@
 package edu.singaporetech.iwsp
 
-class Datasource {
+class ScoreboardDatabase {
     fun loadScore(): List<Score> {
         return listOf<Score>(
             Score("abc", 999),

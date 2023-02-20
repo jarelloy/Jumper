@@ -10,12 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.game.jumper.MainActivity
 import com.game.jumper.R
 import com.game.jumper.databinding.ActivityScoreboardBinding
-import edu.singaporetech.iwsp.Datasource
+import edu.singaporetech.iwsp.ScoreboardDatabase
 import edu.singaporetech.iwsp.ScoreAdapter
 
 class ScoreboardActivity : AppCompatActivity() {
     private lateinit var binding: ActivityScoreboardBinding
-    val myDataset = Datasource().loadScore()
+    val myDataset = ScoreboardDatabase().loadScore()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
