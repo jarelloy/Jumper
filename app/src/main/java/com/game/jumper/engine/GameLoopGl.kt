@@ -3,6 +3,7 @@ package com.game.jumper.engine
 import android.content.Context
 import android.util.Log
 import android.view.SurfaceHolder
+import com.game.jumper.game.SampleScene
 import com.game.jumper.graphics.JumperGLRenderer
 import com.game.jumper.motionSensor.MotionSensorListener
 
@@ -10,6 +11,8 @@ class GameLoopGl(context: Context, var renderer: JumperGLRenderer, private val s
 
     private val gyroscopeRotationTracker = MotionSensorListener(context)
     private var currentRotation = gyroscopeRotationTracker.getCurrentRotation()
+    private lateinit var scene : SampleScene
+    private var context = context
 
     private var isRunning = false
     //private var scene = Scene()
@@ -20,8 +23,11 @@ class GameLoopGl(context: Context, var renderer: JumperGLRenderer, private val s
         private set
 
     fun startLoop() {
+        scene = SampleScene(context)
         gyroscopeRotationTracker.start()
         isRunning = true
+        scene.start()
+
         start()
     }
 
@@ -37,11 +43,12 @@ class GameLoopGl(context: Context, var renderer: JumperGLRenderer, private val s
         // Game loop
         startTime = System.currentTimeMillis()
         while (isRunning) {
-            //scene.update()
+            scene.update()
             renderer.update()
 
             updateCount++
             renderer.draw()
+            scene.draw()
             frameCount++
 
             currentRotation = gyroscopeRotationTracker.getCurrentRotation()

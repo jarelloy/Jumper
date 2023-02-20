@@ -11,26 +11,18 @@ import com.game.jumper.motionSensor.MotionSensorListener
  * all objects to the screen
  */
 class GameGl : GLSurfaceView {
-    private var gameLoop: GameLoopGl
+    private lateinit var gameLoop: GameLoopGl
     var renderer : JumperGLRenderer
 
     constructor(context: Context) : super(context) {
-        val surfaceHolder = holder
-        surfaceHolder.addCallback(this)
         renderer = JumperGLRenderer(context)
-        gameLoop = GameLoopGl(context, renderer, surfaceHolder)
-        renderer.loadGameLoop(gameLoop)
         isFocusable = true
         initOpenGLView()
 
     }
 
     constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) {
-        val surfaceHolder = holder
-        surfaceHolder.addCallback(this)
         renderer = JumperGLRenderer(context)
-        gameLoop = GameLoopGl(context, renderer, surfaceHolder)
-        renderer.loadGameLoop(gameLoop)
         isFocusable = true
         initOpenGLView()
     }
@@ -70,9 +62,13 @@ class GameGl : GLSurfaceView {
 //    }
 
     fun initOpenGLView() {
+        val surfaceHolder = holder
+        surfaceHolder.addCallback(this)
         setEGLContextClientVersion(2)
         setPreserveEGLContextOnPause(true)
         setRenderer(renderer)
         setRenderMode(RENDERMODE_WHEN_DIRTY)
+        gameLoop = GameLoopGl(context, renderer, surfaceHolder)
+        renderer.loadGameLoop(gameLoop)
     }
 }
