@@ -26,6 +26,7 @@ class GameLoopGl(context: Context, var renderer: JumperGLRenderer, private val s
         scene = SampleScene(context)
         gyroscopeRotationTracker.start()
         isRunning = true
+        renderer.loadScene(scene)
         scene.start()
 
         start()
@@ -48,7 +49,6 @@ class GameLoopGl(context: Context, var renderer: JumperGLRenderer, private val s
 
             updateCount++
             renderer.draw()
-            scene.draw()
             frameCount++
 
             currentRotation = gyroscopeRotationTracker.getCurrentRotation()
