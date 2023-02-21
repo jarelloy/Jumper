@@ -7,14 +7,15 @@ import com.game.jumper.databinding.ActivityMainBinding
 import com.game.jumper.graphics.JumperGLSurfaceView
 import com.game.jumper.engine.GameGl
 import com.game.jumper.layout.CustomizePlayerActivity
+import com.game.jumper.layout.GameActivity
 import com.game.jumper.layout.InstructionActivity
 import com.game.jumper.layout.ScoreboardActivity
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var game : GameGl
-    private lateinit var glSurfaceView : JumperGLSurfaceView
+//    private lateinit var game : GameGl
+//    private lateinit var glSurfaceView : JumperGLSurfaceView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,9 +23,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.playgameBtn.setOnClickListener {
-            game = GameGl(this)
-            glSurfaceView = JumperGLSurfaceView(this)
-            setContentView(game)
+            //game = GameGl(this)
+            //glSurfaceView = JumperGLSurfaceView(this)
+            //setContentView(game)
+
+            val intent = Intent(this, GameActivity::class.java)
+            startActivity(intent)
         }
 
         binding.howtoplayBtn.setOnClickListener {
