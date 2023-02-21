@@ -10,6 +10,6 @@ class SpinningScript : Script() {
 
     override fun update() {
         super.update()
-        gameObject.transform.rotation += 0.01f
+        gameObject.transform.rotation += 1f
     }
 }

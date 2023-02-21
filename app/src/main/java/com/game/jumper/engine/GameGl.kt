@@ -69,6 +69,7 @@ class GameGl : GLSurfaceView {
         setRenderer(renderer)
         setRenderMode(RENDERMODE_WHEN_DIRTY)
         gameLoop = GameLoopGl(context, renderer, surfaceHolder)
+        renderer.loadView(this)
         renderer.loadGameLoop(gameLoop)
     }
 }
