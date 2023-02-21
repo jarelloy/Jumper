@@ -5,6 +5,7 @@ import android.content.res.Resources
 import android.util.Log
 import com.game.jumper.engine.GameObject
 import com.game.jumper.engine.Scene
+import com.game.jumper.game.scripts.PlatformScript
 import com.game.jumper.game.scripts.SpinningScript
 import com.game.jumper.graphics.JumperQuad
 import com.game.jumper.level.LevelGenerator
@@ -15,17 +16,21 @@ class SampleScene(context: Context) : Scene(context) {
     private var levelObject : GameObject
     private var platform: Array<Platform>
     private var numPlatform : Int = 10
-
+    private var width : Int = 0
+    private var height : Int = 0
+    private var quad2 : JumperQuad
     init {
-        val width: Int = Resources.getSystem().displayMetrics.widthPixels
-        val height: Int = Resources.getSystem().displayMetrics.heightPixels
+        width = Resources.getSystem().displayMetrics.widthPixels
+        height = Resources.getSystem().displayMetrics.heightPixels
+
+        quad2 = JumperQuad(context, "art/platform.png")
 
         gameObjects.clear()
         paused = false
 
         object1 = createNewObject()
         object1.name = "Spinning Object"
-        object1.transform.position.x = 1f
+        object1.transform.position.x = 0f
         object1.transform.position.y = 0f
         object1.transform.scale.x = 0.2f
         object1.transform.scale.y = 0.2f
@@ -38,19 +43,24 @@ class SampleScene(context: Context) : Scene(context) {
         levelObject = createNewObject()
 
         for (i in platform.indices) {
-            Log.d("Platform","$i, x: ${platform[i].x}, y: ${platform[i].y}" )
+
             levelObject = createNewObject()
             levelObject.name = "Platform $i"
-            levelObject.transform.position.x = platform[i].x.toFloat()
-            levelObject.transform.position.y = platform[i].y.toFloat()
-            levelObject.transform.scale.x = 10f
-            levelObject.transform.scale.y = 10f
-            levelObject.quad
+            levelObject.transform.position.x = platform[i].x.toFloat() / width - 0.5f
+            levelObject.transform.position.y = platform[i].y.toFloat() / height - 0.5f
+
+            Log.d("Platform","$i, x: ${levelObject.transform.position.x}, y: ${levelObject.transform.position.y }" )
+            levelObject.transform.scale.x = 0.2f
+            levelObject.transform.scale.y = 0.05f
+            levelObject.addScript<PlatformScript>()
+
+            levelObject.quad = quad2
         }
     }
 
     override fun update() {
         super.update()
+
 
 
     }
