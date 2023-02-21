@@ -10,6 +10,6 @@ interface HighScoreDao {
     @Insert
     fun insert(highScore: HighScore)
 
-    @Query("SELECT * FROM high_scores_table WHERE highscore_userid = :userId ORDER BY score DESC LIMIT :limit")
+    @Query("SELECT * FROM high_scores_table WHERE user_id = :userId ORDER BY score DESC LIMIT :limit")
     fun getHighScoresForUser(userId: Int, limit: Int): List<HighScore>
 }
