@@ -43,14 +43,26 @@ class GameObject {
         scripts.forEach { script -> script.pausedUpdate() }
     }
 
+    fun transpose(m : FloatArray) : FloatArray{
+        var result = FloatArray(16)
+        for(i in 0..2) {
+            for(j in 0..2) {
+                result[j*3+i] = m[i*3+j]
+            }
+        }
+        return result
+    }
+
     fun draw(vpMatrix: FloatArray) {
         if(quad != null)
         {
-            val matrixValues = FloatArray(16)
+            var matrixValues = FloatArray(16)
             val matrix4x4 = FloatArray(16)
 
             transform.getTrans().getValues(matrixValues)
+            matrixValues = transpose(matrixValues)
             // Convert the matrix from transform from 3x3 to 4x4
+            // Assuming column major for both
             matrix4x4[0] = matrixValues[0];
             matrix4x4[1] = matrixValues[1];
             matrix4x4[2] = 0.0f;
