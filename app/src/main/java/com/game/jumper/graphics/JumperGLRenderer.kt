@@ -68,7 +68,7 @@ open class JumperGLRenderer(context: Context) : GLSurfaceView.Renderer {
 
         // this projection matrix is applied to object coordinates
         // in the onDrawFrame() method
-        Matrix.orthoM(projectionMatrix, 0, -ratio, ratio, -1f, 1f, -1f, 1f)
+        Matrix.orthoM(projectionMatrix, 0, -10f * ratio, 10f * ratio, -10f, 10f, -1f, 1f)
 
         // Set the camera position (View matrix)
         Matrix.setLookAtM(viewMatrix, 0, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1f, 0f)
