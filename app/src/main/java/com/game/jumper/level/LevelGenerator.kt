@@ -6,10 +6,9 @@ import com.game.jumper.level.Player
 import com.game.jumper.engine.GameObject
 
 class LevelGenerator {
-    fun generateLevel(screenWidth: Int, screenHeight: Int) : Array<Platform> {
+    fun generateLevel(screenWidth: Int, screenHeight: Int, numPlatforms : Int = 10) : Array<Platform> {
     //fun generateLevel(screenWidth: Int, screenHeight: Int, playerPos: Point) : Array<Platform> {
         val platforms = mutableListOf<Platform>()
-        val numPlatforms = 10
 
         // Generate random platforms
         for (i in 0 until numPlatforms) {
