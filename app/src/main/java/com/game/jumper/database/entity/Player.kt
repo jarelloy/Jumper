@@ -1,5 +1,6 @@
 package com.game.jumper.database.entity
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -7,6 +8,6 @@ import androidx.room.PrimaryKey
 data class Player(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    val username: String,
-    val score: Int
+    @ColumnInfo(name = "user_name") val username: String,
+    @ColumnInfo(name = "user_score") val score: Int
 )

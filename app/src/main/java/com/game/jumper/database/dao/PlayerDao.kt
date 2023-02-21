@@ -10,6 +10,6 @@ interface PlayerDao {
     @Insert
     fun insert(player: Player)
 
-    @Query("SELECT * FROM player_table WHERE username = :username")
+    @Query("SELECT * FROM player_table WHERE user_name = :username")
     fun findByUsername(username: String): Player?
 }
