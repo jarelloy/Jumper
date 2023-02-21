@@ -14,7 +14,7 @@ class SampleScene(context: Context) : Scene(context){
 
         object1 = createNewObject()
         object1.name = "Spinning Object"
-        object1.transform.position.x = 0f
+        object1.transform.position.x = 1f
         object1.transform.position.y = 0f
         object1.transform.scale.x = 0.2f
         object1.transform.scale.y = 0.2f
