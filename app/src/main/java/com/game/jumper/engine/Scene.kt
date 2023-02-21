@@ -1,6 +1,7 @@
 package com.game.jumper.engine
 
 import android.content.Context
+import android.graphics.Matrix
 import com.game.jumper.math.Vector2
 
 open class Scene(context: Context) {
@@ -57,7 +58,7 @@ open class Scene(context: Context) {
             gameObjects.forEach{gameObject -> gameObject.update()}
     }
 
-    open fun draw() {
-        gameObjects.forEach{gameObject -> gameObject.draw() }
+    open fun draw(vpMat : FloatArray) {
+        gameObjects.forEach{gameObject -> gameObject.draw(vpMat) }
     }
 }

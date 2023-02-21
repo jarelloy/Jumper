@@ -6,13 +6,18 @@ import android.opengl.GLES20
 import android.opengl.GLSurfaceView
 import android.opengl.GLUtils
 import android.opengl.Matrix
+import android.util.Log
+import com.game.jumper.engine.GameGl
 import com.game.jumper.engine.GameLoopGl
+import com.game.jumper.game.SampleScene
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
 
 open class JumperGLRenderer(context: Context) : GLSurfaceView.Renderer {
     lateinit var mQuad: JumperQuad
     lateinit var gameLoopGl: GameLoopGl
+    lateinit var scene : SampleScene
+    lateinit var surfaceView: GameGl
 
     var gameContext: Context = context
 
@@ -35,6 +40,14 @@ open class JumperGLRenderer(context: Context) : GLSurfaceView.Renderer {
 
     fun loadGameLoop(gameLoop: GameLoopGl) {
         gameLoopGl = gameLoop
+    }
+
+    fun loadScene(newScene: SampleScene) {
+        scene = newScene
+    }
+
+    fun loadView(view: GameGl) {
+        surfaceView = view
     }
 
     override fun onSurfaceCreated(gl: GL10?, config: EGLConfig?) {
@@ -67,7 +80,9 @@ open class JumperGLRenderer(context: Context) : GLSurfaceView.Renderer {
         // Calculate the projection and view transformation
         Matrix.multiplyMM(vPMatrix, 0, projectionMatrix, 0, viewMatrix, 0)
 
-        mQuad.drawTextured(vPMatrix)
+        //mQuad.drawTextured(vPMatrix)
+        scene.draw(vPMatrix)
+        //Log.d("Test", "Yo")
     }
 
     fun draw()
@@ -80,6 +95,6 @@ open class JumperGLRenderer(context: Context) : GLSurfaceView.Renderer {
 
     fun update()
     {
-
+        surfaceView.requestRender()
     }
 }

@@ -2,6 +2,7 @@ package com.game.jumper.engine
 
 import android.content.res.Resources
 import android.opengl.Matrix
+import android.opengl.Matrix.*
 import com.game.jumper.engine.objects.Component
 import com.game.jumper.engine.objects.Script
 import com.game.jumper.graphics.JumperQuad
@@ -42,22 +43,38 @@ class GameObject {
         scripts.forEach { script -> script.pausedUpdate() }
     }
 
-    fun draw() {
+    fun draw(vpMatrix: FloatArray) {
         if(quad != null)
         {
-            val projectionMatrix = FloatArray(16)
-            val viewMatrix = FloatArray(16)
             val matrixValues = FloatArray(16)
-            Matrix.frustumM(projectionMatrix, 0, -10f, 10f, -1f, 1f, 3f, 7f)
-            Matrix.setLookAtM(viewMatrix, 0, 0f, 0f, 7f, 0f, 0f, 0f, 0f, 1.0f, 0.0f)
+            val matrix4x4 = FloatArray(16)
 
             transform.getTrans().getValues(matrixValues)
-            val MVmat = FloatArray(16)
-            val MVPmat = FloatArray(16)
-            Matrix.multiplyMM(MVmat, 0, projectionMatrix, 0, viewMatrix, 0)
-            Matrix.multiplyMM(MVPmat, 0, MVmat, 0, matrixValues, 0)
+            // Convert the matrix from transform from 3x3 to 4x4
+            matrix4x4[0] = matrixValues[0];
+            matrix4x4[1] = matrixValues[1];
+            matrix4x4[2] = 0.0f;
+            matrix4x4[3] = matrixValues[2];
 
-            quad!!.drawTextured(matrixValues)
+            matrix4x4[4] = matrixValues[3];
+            matrix4x4[5] = matrixValues[4];
+            matrix4x4[6] = 0.0f;
+            matrix4x4[7] = matrixValues[5];
+
+            matrix4x4[8] = 0.0f;
+            matrix4x4[9] = 0.0f;
+            matrix4x4[10] = 1.0f; // z position
+            matrix4x4[11] = 0.0f;
+
+            matrix4x4[12] = matrixValues[6];
+            matrix4x4[13] = matrixValues[7];
+            matrix4x4[14] = 0.0f;
+            matrix4x4[15] = matrixValues[8];
+
+            val MVPmat = FloatArray(16)
+            multiplyMM(MVPmat, 0, vpMatrix, 0, matrix4x4, 0)
+
+            quad!!.drawTextured(MVPmat)
         }
     }
 
