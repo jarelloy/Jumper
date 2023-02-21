@@ -11,7 +11,7 @@ import com.game.jumper.motionSensor.MotionSensorListener
  * all objects to the screen
  */
 class GameGl : GLSurfaceView {
-    private lateinit var gameLoop: GameLoopGl
+    lateinit var gameLoop: GameLoopGl
     var renderer : JumperGLRenderer
 
     constructor(context: Context) : super(context) {
