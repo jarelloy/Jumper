@@ -1,15 +1,16 @@
 package com.game.jumper.layout
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.game.jumper.MainActivity
 import com.game.jumper.databinding.ActivityGameBinding
 import com.game.jumper.engine.GameGl
 import com.game.jumper.graphics.JumperGLSurfaceView
-import org.w3c.dom.Text
+
 
 class GameActivity : AppCompatActivity() {
     private lateinit var binding: ActivityGameBinding
@@ -22,7 +23,6 @@ class GameActivity : AppCompatActivity() {
 
         fun UpdateScore(value: Int) {
             score = value
-            scoreText!!.text = score.toString()
         }
     }
 
@@ -78,5 +78,19 @@ class GameActivity : AppCompatActivity() {
         scoreText!!.y = 100f
         addContentView(scoreText, ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.WRAP_CONTENT))
+
+        //var thread = object : Thread() {
+        //    override fun run() {
+        //            runOnUiThread {
+        //                scoreText!!.text = score.toString()
+        //            }
+        //        }
+        //    }
+        //}
+        //thread.start()
+
+        this.runOnUiThread {
+            scoreText!!.text = score.toString()
+        }
     }
 }
