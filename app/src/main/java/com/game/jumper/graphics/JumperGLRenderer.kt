@@ -10,6 +10,7 @@ import android.util.Log
 import com.game.jumper.engine.GameGl
 import com.game.jumper.engine.GameLoopGl
 import com.game.jumper.game.SampleScene
+import com.game.jumper.math.Vector2
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
 
@@ -35,6 +36,16 @@ open class JumperGLRenderer(context: Context) : GLSurfaceView.Renderer {
             GLES20.glCompileShader(shader)
 
             return shader
+        }
+
+        var camPos: Vector2 = Vector2(0f, 0f)
+
+        fun setCamPos(x: Float, y: Float) {
+            camPos = Vector2(x, y)
+        }
+
+        fun getCamPos(): Vector2 {
+            return camPos
         }
     }
 
