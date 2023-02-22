@@ -15,9 +15,6 @@ class PlatformScript : Script() {
 
         gameObject.transform.position.y += gravity
 
-        if (gameObject.transform.position.y < -10.5) {
-            gameObject.transform.position.y = 10f + (-1..1).random().toFloat()
-            gameObject.transform.position.x = (-4..4).random().toFloat()
-        }
+
     }
 }

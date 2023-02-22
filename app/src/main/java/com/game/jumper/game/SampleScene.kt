@@ -12,6 +12,8 @@ import com.game.jumper.level.LevelGenerator
 import com.game.jumper.level.Platform
 import com.game.jumper.math.Vector2
 import com.game.jumper.motionSensor.MotionSensorListener
+import com.game.jumper.engine.GameLoopGl
+import kotlin.math.sign
 
 class SampleScene(context: Context) : Scene(context) {
     //private var object1 : GameObject
@@ -19,7 +21,7 @@ class SampleScene(context: Context) : Scene(context) {
     private var player : GameObject
 
     private var platform: Array<Platform>
-    private var numPlatform : Int = 15
+    private var numPlatform : Int = 30
     private var width : Int = 0
     private var height : Int = 0
     private var quad2 : JumperQuad
@@ -28,6 +30,10 @@ class SampleScene(context: Context) : Scene(context) {
     private var currentRotation = gyroscopeRotationTracker.getCurrentRoll()
 
     private var score : Int = 0
+    private var isJumping : Boolean = false
+    private var time : Float = 0f
+
+
 
     init {
         gyroscopeRotationTracker.start()
@@ -96,50 +102,79 @@ class SampleScene(context: Context) : Scene(context) {
 
         // Player movement with gyro
         //TODO currently works with Extended controls but not IRL
-        if (currentRotation > 2)
-            player.transform.position.x += 0.05f
-        else if (currentRotation > 5)
-            player.transform.position.x += 0.1f
-        else if (currentRotation > 10)
-            player.transform.position.x += 0.2f
 
-        if (currentRotation < -2)
-            player.transform.position.x -= 0.05f
-        else if (currentRotation < -5)
-            player.transform.position.x -= 0.1f
-        else if (currentRotation < -10)
+        if (currentRotation > 20)
             player.transform.position.x -= 0.2f
+        else if (currentRotation > 10)
+            player.transform.position.x -= 0.1f
+        else if (currentRotation > 2)
+            player.transform.position.x -= 0.01f
 
+        if (currentRotation < -20)
+            player.transform.position.x += 0.2f
+        else if (currentRotation < -10)
+            player.transform.position.x += 0.1f
+        else if (currentRotation < -2)
+            player.transform.position.x += 0.01f
 
         //Log.d("playerXPos", player.transform.position.x.toString())
         //Log.d("playerXPos", currentRotation.toString())
 
         val playerPos = Vector2(player.transform.position.x, player.transform.position.y)
 
-        for (platfrom in gameObjects) {
-            if (platfrom.name == "Platform") {
+        for (platform in gameObjects) {
+            if (platform.name == "Platform") {
 
-                val platformPos = Vector2(platfrom.transform.position.x, platfrom.transform.position.y)
+                val platformPos = Vector2(platform.transform.position.x, platform.transform.position.y)
 
                 if (checkCollided(playerPos, platformPos)) {
-                    for (platfromLoop in gameObjects) {
-                        score += 100
-                        if (platfromLoop.name == "Platform") platfromLoop.transform.position.y -= 3f
+                    score += 100
+                    isJumping = true
+                    for (platformLoop in gameObjects) {
+                        if (platformLoop.name == "Platform") {
+                            platformLoop.transform.position.y -= 3f //* GameLoopGl.deltaTime
+                        }
                     }
                 }
 
+                if (platform.transform.position.y < -12) {
+
+                    var highestPlatform = 0f
+                    // loop to get highest platform
+                    for (platformLoop in gameObjects) {
+                        if (platformLoop.name == "Platform") {
+                            if (highestPlatform < platformLoop.transform.position.y)
+                                highestPlatform = platformLoop.transform.position.y
+                        }
+                    }
+                    platform.transform.position.y = highestPlatform + (1..10 ).random() % 3
+                }
             }
         }
+
+
+        /*if (isJumping) {
+            time += GameLoopGl.deltaTime
+            if (time > 0.2f)
+                isJumping = false
+        }*/
     }
 }
 
 private fun checkCollided( playerPos : Vector2, platformPos : Vector2) : Boolean {
-    val playerVector = Vector2(playerPos.x - platformPos.x, playerPos.y - platformPos.y)
-    platformPos.y = platformPos.y + 1f
+    val playerVector = Vector2(playerPos.x - platformPos.x, playerPos.y - platformPos.y - .5f)
+    val upVector = Vector2(0f,1f)
 
-    if (platformPos.x < (platformPos.x + 1.5f) && platformPos.x > (platformPos.x - 1.5f)
-        && platformPos.dotProduct(playerVector) <= 0f && platformPos.dotProduct(playerVector) > -0.5f
-    ) return true
+    val dot = upVector.dotProduct((playerVector))
+    // check if it is above the platform first
+    if ((playerPos.x < (platformPos.x + 1.5f) && playerPos.x > (platformPos.x - 1.5f)) && dot >= -1f) {
+        //Log.d("CheckCollision", "Above")
+        // check if it hits 0
+        if(dot <= 0f && dot >= -6f) {
+            //Log.d("CheckCollision", "Yes, $dot")
+            return true
+        }
+    }
     return false
 }
 

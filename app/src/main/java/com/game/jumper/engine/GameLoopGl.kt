@@ -9,7 +9,6 @@ import com.game.jumper.motionSensor.MotionSensorListener
 
 class GameLoopGl(context: Context, var renderer: JumperGLRenderer, private val surfaceHolder: SurfaceHolder) : Thread() {
 
-
     private lateinit var scene : SampleScene
     private var context = context
 
@@ -20,6 +19,7 @@ class GameLoopGl(context: Context, var renderer: JumperGLRenderer, private val s
         private set
     var averageFPS = 0.0
         private set
+    var lastTime = 0.0
 
     fun startLoop() {
         scene = SampleScene(context)
@@ -73,11 +73,13 @@ class GameLoopGl(context: Context, var renderer: JumperGLRenderer, private val s
             if (elapsedTime >= 1000) {
                 averageUPS = updateCount / (1E-3 * elapsedTime)
                 averageFPS = updateCount / (1E-3 * elapsedTime)
+                deltaTime = (1000f / averageFPS / 1000f).toFloat()
                 updateCount = 0
                 frameCount = 0
                 startTime = System.currentTimeMillis()
                 Log.d("Average UPS: ", averageUPS.toString())
                 Log.d("Average FPS: ", averageFPS.toString())
+                Log.d("DeltaTime", deltaTime.toString())
             }
         }
     }
