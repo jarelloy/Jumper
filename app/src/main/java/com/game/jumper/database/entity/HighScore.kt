@@ -9,7 +9,7 @@ import java.util.*
 @Entity(tableName = "high_scores_table")
 data class HighScore(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    @ColumnInfo(name = "highscore_userid") val userId: Int,
+    @ColumnInfo(name = "highscore_userid") val userId: String,
     @ColumnInfo(name = "highscore_score") val score: Int,
-    @ColumnInfo(name = "date_played") var datePlayed: Date? = null
+    //@ColumnInfo(name = "date_played") var datePlayed: Date? = null
 )

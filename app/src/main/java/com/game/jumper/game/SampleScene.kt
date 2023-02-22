@@ -3,6 +3,8 @@ package com.game.jumper.game
 import android.content.Context
 import android.content.res.Resources
 import android.util.Log
+import androidx.lifecycle.ViewModelProvider
+import com.game.jumper.databinding.ActivityGameBinding
 import com.game.jumper.engine.GameObject
 import com.game.jumper.engine.Scene
 import com.game.jumper.game.scripts.PlatformScript
@@ -16,13 +18,14 @@ import com.game.jumper.engine.GameLoopGl
 import com.game.jumper.level.Player
 import com.game.jumper.graphics.JumperGLRenderer
 import com.game.jumper.layout.GameActivity
+import com.game.jumper.model.HighScoreViewModel
 
 class SampleScene(context: Context) : Scene(context) {
     //private var object1 : GameObject
+    private val gameBinding: GameActivity? = context as? GameActivity
     private var levelObject : GameObject
+
     private var playerObj : GameObject
-
-
     private var numPlatform : Int = 30
 
     private var platform: MutableList<Platform>
@@ -42,7 +45,6 @@ class SampleScene(context: Context) : Scene(context) {
 
     init {
         gyroscopeRotationTracker.start()
-
         width = Resources.getSystem().displayMetrics.widthPixels
         height = Resources.getSystem().displayMetrics.heightPixels
 
@@ -160,6 +162,7 @@ class SampleScene(context: Context) : Scene(context) {
 
         if (isDie) {
             //TODO: if DIE go game over
+            gameBinding?.insertHighScoreToDatabase("XUANISCUTEEEEEEE", 999)
             Log.d("Score", "Die")
         }
     }

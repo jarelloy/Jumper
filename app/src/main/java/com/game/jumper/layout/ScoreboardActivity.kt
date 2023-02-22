@@ -5,17 +5,22 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.game.jumper.MainActivity
 import com.game.jumper.R
 import com.game.jumper.databinding.ActivityScoreboardBinding
+import com.game.jumper.model.HighScoreAdapter
+import com.game.jumper.model.HighScoreViewModel
 import edu.singaporetech.iwsp.ScoreboardDatabase
 import edu.singaporetech.iwsp.ScoreAdapter
 
 class ScoreboardActivity : AppCompatActivity() {
     private lateinit var binding: ActivityScoreboardBinding
-    val myDataset = ScoreboardDatabase().loadScore()
+    private lateinit var highScoreViewModel: HighScoreViewModel
+    //val myDataset = ScoreboardDatabase().loadScore()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,9 +30,16 @@ class ScoreboardActivity : AppCompatActivity() {
         val scoreboardbackBtn : Button = findViewById(R.id.scoreboardbackBtn)
 
         val recyclerView = findViewById<RecyclerView>(R.id.scoreboardRecycle)
-        val scoreAdapter = ScoreAdapter(myDataset)
-        recyclerView.adapter = scoreAdapter
+        val highScoreAdapter = HighScoreAdapter()
+        recyclerView.adapter = highScoreAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
+        //val scoreAdapter = ScoreAdapter(myDataset)
+        //recyclerView.adapter = scoreAdapter
+        //recyclerView.layoutManager = LinearLayoutManager(this)
+        highScoreViewModel = ViewModelProvider(this).get(HighScoreViewModel::class.java)
+        highScoreViewModel.highScores.observe(this, Observer { entry ->
+            highScoreAdapter.setData(entry)
+        })
 
         scoreboardbackBtn.setOnClickListener {
             val intent = Intent (this, MainActivity::class.java)

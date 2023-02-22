@@ -13,7 +13,6 @@ import com.game.jumper.database.entity.PowerUp
 
 
 @Database(entities = [Player::class, HighScore::class, PowerUp::class], version = 1, exportSchema = false)
-@TypeConverters(Converters::class)
 abstract class JumperDatabase : RoomDatabase() {
 
     abstract fun playerDao(): PlayerDao
