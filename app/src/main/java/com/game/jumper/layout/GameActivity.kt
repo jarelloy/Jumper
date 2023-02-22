@@ -9,11 +9,22 @@ import androidx.appcompat.app.AppCompatActivity
 import com.game.jumper.databinding.ActivityGameBinding
 import com.game.jumper.engine.GameGl
 import com.game.jumper.graphics.JumperGLSurfaceView
+import org.w3c.dom.Text
 
-class GameActivity :AppCompatActivity() {
+class GameActivity : AppCompatActivity() {
     private lateinit var binding: ActivityGameBinding
     private lateinit var game : GameGl
     private lateinit var glSurfaceView : JumperGLSurfaceView
+
+    companion object {
+        var score: Int = 0
+        var scoreText: TextView? = null
+
+        fun UpdateScore(value: Int) {
+            score = value
+            scoreText!!.text = score.toString()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,5 +63,20 @@ class GameActivity :AppCompatActivity() {
             pauseMenu.alpha = 0f
         }
 
-        }
+        val scoreView = TextView(this)
+        scoreView.text = "Score:"
+        scoreView.textSize = 24f
+        scoreView.x = 650f
+        scoreView.y = 100f
+        addContentView(scoreView, ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT))
+
+        scoreText = TextView(this)
+        scoreText!!.text = score.toString()
+        scoreText!!.textSize = 24f
+        scoreText!!.x = 850f
+        scoreText!!.y = 100f
+        addContentView(scoreText, ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT))
+    }
 }
