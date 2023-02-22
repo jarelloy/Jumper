@@ -2,6 +2,7 @@ package com.game.jumper.layout
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
@@ -16,6 +17,8 @@ class GameActivity : AppCompatActivity() {
     private lateinit var binding: ActivityGameBinding
     private lateinit var game : GameGl
     private lateinit var glSurfaceView : JumperGLSurfaceView
+
+    lateinit var runnable: Runnable
 
     companion object {
         var score: Int = 0
@@ -88,9 +91,22 @@ class GameActivity : AppCompatActivity() {
         //    }
         //}
         //thread.start()
+        runOnUiThread {
+            runnable = Runnable {
 
-        this.runOnUiThread {
-            scoreText!!.text = score.toString()
+                //do something here
+                scoreText!!.text = score.toString()
+                runDelayedHandler(5000)
+            }
         }
+
+        runnable.run()
+    }
+
+    fun runDelayedHandler(timeToWait: Long) {
+
+        //Keep it running
+        val handler = Handler()
+        handler.postDelayed(runnable, timeToWait)
     }
 }
