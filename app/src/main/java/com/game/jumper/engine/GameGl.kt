@@ -72,7 +72,7 @@ class GameGl : GLSurfaceView {
         setPreserveEGLContextOnPause(true)
         setRenderer(renderer)
         setRenderMode(RENDERMODE_WHEN_DIRTY)
-        gameLoop = GameLoopGl(context, renderer, surfaceHolder)
+        gameLoop = GameLoopGl(context, renderer)
         renderer.loadView(this)
         renderer.loadGameLoop(gameLoop)
 

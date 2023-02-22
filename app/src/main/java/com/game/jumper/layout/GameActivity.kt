@@ -13,14 +13,17 @@ import androidx.appcompat.app.AppCompatActivity
 import com.game.jumper.R
 import com.game.jumper.databinding.ActivityGameBinding
 import com.game.jumper.engine.GameGl
+import com.game.jumper.engine.GameLoopGl
+import com.game.jumper.graphics.JumperGLRenderer
 import com.game.jumper.graphics.JumperGLSurfaceView
-
 
 class GameActivity : AppCompatActivity() {
     private lateinit var binding: ActivityGameBinding
     private lateinit var game : GameGl
     private lateinit var glSurfaceView : JumperGLSurfaceView
+    private var glRenderer = JumperGLRenderer(this)
     private lateinit var pauseDialog: Dialog
+    private var gameloop = GameLoopGl(this, glRenderer)
 
     lateinit var runnable: Runnable
 
@@ -59,6 +62,8 @@ class GameActivity : AppCompatActivity() {
         pauseBtn.setOnClickListener {
             pauseBtn.isEnabled = false
             pauseBtn.alpha = 0f
+
+            gameloop.setScenePause(true)
 
             if (!pauseMenuAdded) {
                 pauseMenuAdded = true
