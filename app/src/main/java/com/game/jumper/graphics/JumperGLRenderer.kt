@@ -84,17 +84,12 @@ open class JumperGLRenderer(context: Context) : GLSurfaceView.Renderer {
         // Set the camera position (View matrix)
         Matrix.setLookAtM(viewMatrix, 0, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1f, 0f)
 
-
         // Calculate the projection and view transformation
         Matrix.multiplyMM(vPMatrix, 0, projectionMatrix, 0, viewMatrix, 0)
     }
 
     override fun onDrawFrame(gl: GL10?) {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT)
-
-        Matrix.setLookAtM(viewMatrix, 0, camPos.x, camPos.y, 1f, 0f, 0f, 0f, 0f, 1f, 0f)
-        Matrix.multiplyMM(vPMatrix, 0, projectionMatrix, 0, viewMatrix, 0)
-        Log.d("CamPos", "${camPos.x}, ${camPos.y}")
 
         //mQuad.drawTextured(vPMatrix)
         scene.draw(vPMatrix)
@@ -111,6 +106,10 @@ open class JumperGLRenderer(context: Context) : GLSurfaceView.Renderer {
 
     fun update()
     {
+        Matrix.setLookAtM(viewMatrix, 0, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1f, 0f)
+        viewMatrix[12] = -camPos.x
+        viewMatrix[13] = -camPos.y
+        Matrix.multiplyMM(vPMatrix, 0, projectionMatrix, 0, viewMatrix, 0)
         surfaceView.requestRender()
     }
 }

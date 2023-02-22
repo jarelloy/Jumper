@@ -83,7 +83,7 @@ class MotionSensorListener(context: Context) : SensorEventListener {
                         currentYaw = Math.toDegrees(orientation[0].toDouble()).toFloat()
 
                         // Calculate current rotation based on the pitch and roll angles
-                        currentRotation = ((currentRoll.toDegrees() + 90) % 180).toInt()
+                        currentRotation = ((currentRoll.toDegrees() ) % 180).toInt()
                     }
                 }
             }

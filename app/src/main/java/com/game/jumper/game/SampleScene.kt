@@ -14,15 +14,19 @@ import com.game.jumper.math.Vector2
 import com.game.jumper.motionSensor.MotionSensorListener
 import com.game.jumper.engine.GameLoopGl
 import com.game.jumper.level.Player
-import kotlin.math.sign
+import com.game.jumper.graphics.JumperGLRenderer
+import com.game.jumper.layout.GameActivity
 
 class SampleScene(context: Context) : Scene(context) {
     //private var object1 : GameObject
     private var levelObject : GameObject
     private var playerObj : GameObject
 
-    private var platform: Array<Platform>
+
     private var numPlatform : Int = 30
+
+    private var platform: MutableList<Platform>
+
     private var width : Int = 0
     private var height : Int = 0
     private var quad2 : JumperQuad
@@ -58,18 +62,19 @@ class SampleScene(context: Context) : Scene(context) {
         val quad1 = JumperQuad(context, "art/BPlayer_Idle.png")
         object1.quad = quad1*/
 
-        playerObj = createNewObject()
-        playerObj.name = "Player"
-        playerObj.transform.position.x = 0f
-        playerObj.transform.position.y = -1f
-        playerObj.transform.scale.x = 1.0f
-        playerObj.transform.scale.y = 1.0f
-        playerObj.addScript<PlayerScript>()
-
-        playerObj.quad = quad1
-
+        // create level using LevelGenerator
         platform = LevelGenerator().generateLevel(width, height, numPlatform)
 
+        for (i in platform.indices) {
+            levelObject = createNewObject()
+            levelObject.name = "Platform"
+            levelObject.transform.position.x = (platform[i].x.toFloat() / width  - .5f) * 10
+            levelObject.transform.position.y = (platform[i].y.toFloat() / height - .5f) * 20
+            levelObject.transform.scale.x = platform[i].sizeX
+            levelObject.transform.scale.y = platform[i].sizeY
+            levelObject.addScript<PlatformScript>()
+            levelObject.quad = quad2
+        }
         // First platform
         levelObject = createNewObject()
         levelObject.name = "Platform"
@@ -79,19 +84,17 @@ class SampleScene(context: Context) : Scene(context) {
         levelObject.transform.scale.y = 0.2f
         levelObject.addScript<PlatformScript>()
         levelObject.quad = quad2
+        platform.add(Platform(levelObject.transform.position.x, levelObject.transform.position.y))
 
-        for (i in platform.indices) {
-            levelObject = createNewObject()
-            levelObject.name = "Platform"
-            levelObject.transform.position.x = (platform[i].x.toFloat() / width  - .5f) * 10
-            levelObject.transform.position.y = (platform[i].y.toFloat() / height - .5f) * 20
+        playerObj = createNewObject()
+        playerObj.name = "Player"
+        playerObj.transform.position.x = 0f
+        playerObj.transform.position.y = -1f
+        playerObj.transform.scale.x = 1.0f
+        playerObj.transform.scale.y = 1.0f
+        playerObj.addScript<PlayerScript>()
 
-            Log.d("Platform","$i, x: ${levelObject.transform.position.x}, y: ${levelObject.transform.position.y }" )
-            levelObject.transform.scale.x = platform[i].sizeX
-            levelObject.transform.scale.y = platform[i].sizeY
-            levelObject.addScript<PlatformScript>()
-            levelObject.quad = quad2
-        }
+        playerObj.quad = quad1
     }
 
     override fun update() {
@@ -101,67 +104,63 @@ class SampleScene(context: Context) : Scene(context) {
 
         val player = findObject("Player")
 
-        // Player movement with gyro
-        //TODO currently works with Extended controls but not IRL
-        /*
-        if (currentRotation > 20)
-            player.transform.position.x -= 0.2f
-        else if (currentRotation > 10)
-            player.transform.position.x -= 0.1f
-        else if (currentRotation > 2)
-            player.transform.position.x -= 0.01f
-
-        if (currentRotation < -20)
-            player.transform.position.x += 0.2f
-        else if (currentRotation < -10)
-            player.transform.position.x += 0.1f
-        else if (currentRotation < -2)
-            player.transform.position.x += 0.01f*/
-
-        //Log.d("playerXPos", player.transform.position.x.toString())
-        //Log.d("playerXPos", currentRotation.toString())
-
         val playerPos = Vector2(player.transform.position.x, player.transform.position.y)
 
-        for (platform in gameObjects) {
-            if (platform.name == "Platform") {
+        for (i in gameObjects.indices) {
 
-                val platformPos = Vector2(platform.transform.position.x, platform.transform.position.y)
+            if (gameObjects[i].name == "Platform") {
 
-                if (checkCollided(playerPos, platformPos)) {
-                    score += 100
-                    isJumping = true
-                    isDie = false
-                    for (platformLoop in gameObjects) {
-                        if (platformLoop.name == "Platform") {
-                            //platformLoop.transform.position.y -= 3f * GameLoopGl.deltaTime
-                        }
+                val platformPos = Vector2(gameObjects[i].transform.position.x, gameObjects[i].transform.position.y)
+
+                if (checkCollided(playerPos, platformPos) && PlayerScript.velocity.y < -.5f) {
+
+                    if (!platform[i].isJumped) {
+                        score += 100
+                        platform[i].isJumped = true
                     }
+                    //GameActivity.UpdateScore(score)
+                    //GameActivity.score = score
+                    Log.d("Score", "$score")
+
+                    isJumping = true
+                    PlayerScript.velocity.y = 5f
                 }
 
-                if (platform.transform.position.y < -12) {
+                var lowestPlatform = -12f
 
+                if (gameObjects[i].transform.position.y < JumperGLRenderer.camPos.y-12) {
                     var highestPlatform = 0f
+                    lowestPlatform = 10000000f
                     // loop to get highest platform
                     for (platformLoop in gameObjects) {
                         if (platformLoop.name == "Platform") {
                             if (highestPlatform < platformLoop.transform.position.y)
                                 highestPlatform = platformLoop.transform.position.y
+
+                            if (lowestPlatform > platformLoop.transform.position.y)
+                                lowestPlatform = platformLoop.transform.position.y
                         }
                     }
-                    platform.transform.position.y = highestPlatform + (1..10 ).random() % 3
+                    gameObjects[i].transform.position.y = highestPlatform + (1..10 ).random() % 4
+                    platform[i].isJumped = false
                 }
+
+                if (player.transform.position.y < lowestPlatform - 10f ) isDie = true
             }
         }
 
-        if (!isDie) {
-            //time += GameLoopGl.deltaTime
-            if (time > 1f)
-                isDie = true
+        if (isJumping) {
+            time += GameLoopGl.deltaTime.toFloat()
+            if (time > 1f) {
+                PlayerScript.velocity.y = 0f
+                isJumping = false
+                time = 0f
+            }
         }
 
         if (isDie) {
-
+            //TODO: if DIE go game over
+            Log.d("Score", "Die")
         }
     }
 }
