@@ -3,6 +3,7 @@ package com.game.jumper.graphics
 import android.content.Context
 import android.opengl.GLSurfaceView
 import android.util.AttributeSet
+import android.widget.Button
 import com.game.jumper.engine.GameLoopGl
 
 open class JumperGLSurfaceView : GLSurfaceView {
