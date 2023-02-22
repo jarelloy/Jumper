@@ -9,8 +9,6 @@ import com.game.jumper.motionSensor.MotionSensorListener
 
 class GameLoopGl(context: Context, var renderer: JumperGLRenderer, private val surfaceHolder: SurfaceHolder) : Thread() {
 
-    private val gyroscopeRotationTracker = MotionSensorListener(context)
-    private var currentRotation = gyroscopeRotationTracker.getCurrentRotation()
     private lateinit var scene : SampleScene
     private var context = context
 
@@ -21,15 +19,19 @@ class GameLoopGl(context: Context, var renderer: JumperGLRenderer, private val s
         private set
     var averageFPS = 0.0
         private set
+    var lastTime = 0.0
 
     fun startLoop() {
         scene = SampleScene(context)
-        gyroscopeRotationTracker.start()
         isRunning = true
         renderer.loadScene(scene)
         scene.start()
 
         start()
+    }
+
+    fun setScenePause(pause : Boolean) {
+        scene.paused = pause
     }
 
     override fun run() {
@@ -50,8 +52,6 @@ class GameLoopGl(context: Context, var renderer: JumperGLRenderer, private val s
             updateCount++
             renderer.draw()
             frameCount++
-
-            currentRotation = gyroscopeRotationTracker.getCurrentRotation()
 
             // Pause game loop to not exceed target UPS
             elapsedTime = System.currentTimeMillis() - startTime
@@ -77,11 +77,13 @@ class GameLoopGl(context: Context, var renderer: JumperGLRenderer, private val s
             if (elapsedTime >= 1000) {
                 averageUPS = updateCount / (1E-3 * elapsedTime)
                 averageFPS = updateCount / (1E-3 * elapsedTime)
+                deltaTime = averageUPS / 1000
                 updateCount = 0
                 frameCount = 0
                 startTime = System.currentTimeMillis()
                 Log.d("Average UPS: ", averageUPS.toString())
                 Log.d("Average FPS: ", averageFPS.toString())
+                Log.d("DeltaTime", deltaTime.toString())
             }
         }
     }
@@ -89,6 +91,6 @@ class GameLoopGl(context: Context, var renderer: JumperGLRenderer, private val s
     companion object {
         private const val MAX_UPS = 60.0
         private const val UPS_PERIOD = 1E+3 / MAX_UPS
-        var deltaTime : Float = 0F
+        var deltaTime : Double = 0.0
     }
 }

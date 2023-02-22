@@ -3,15 +3,19 @@ package com.game.jumper.engine
 import android.content.Context
 import android.opengl.GLSurfaceView
 import android.util.AttributeSet
+import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import com.game.jumper.graphics.JumperGLRenderer
 import com.game.jumper.motionSensor.MotionSensorListener
+import android.app.Activity
 
 /**
  * Manages all objects in the game and is responsible for updating all states and render
  * all objects to the screen
  */
 class GameGl : GLSurfaceView {
-    private lateinit var gameLoop: GameLoopGl
+    lateinit var gameLoop: GameLoopGl
     var renderer : JumperGLRenderer
 
     constructor(context: Context) : super(context) {
@@ -71,5 +75,6 @@ class GameGl : GLSurfaceView {
         gameLoop = GameLoopGl(context, renderer, surfaceHolder)
         renderer.loadView(this)
         renderer.loadGameLoop(gameLoop)
+
     }
 }

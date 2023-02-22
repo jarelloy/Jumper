@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Jumper</string>
+    <string name="playgameBtn">Play Game</string>
+    <string name="howtoplayBtn">How To Play</string>
+    <string name="scoreboardBtn">Scoreboard</string>
+    <string name="scoreboardText">Scoreboard</string>
+    <string name="scoreboardNameText">Name</string>
+    <string name="scoreboardScoreText">Score</string>
+    <string name="customize_playerBtn">Customize Player</string>
+    <string name="exitBtn">Exit Game</string>
+    <string name="selectBtn">Select</string>
+    <string name="backBtn">Back</string>
+
+    <string name="movement">Tilt the phone left and right to move around</string>
 </resources>

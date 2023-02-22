@@ -18,11 +18,17 @@ class MotionSensorListener(context: Context) : SensorEventListener {
 
     private val rotationMatrix = FloatArray(9)
     private val orientation = FloatArray(3)
-    private var currentRotation: Int = 0
-    private var currentPitch: Float = 0f
-    private var currentRoll: Float = 0f
-    private var currentYaw: Float = 0f
+
     private var lastTimestamp: Long = 0
+
+    companion object {
+        var currentRotation: Int = 0
+        var currentPitch: Float = 0f
+        var currentRoll: Float = 0f
+        var currentYaw: Float = 0f
+        private const val NS2S = 1.0f / 1000000000.0f
+    }
+
 
     private val tag = "SensorReading"
 
@@ -77,7 +83,7 @@ class MotionSensorListener(context: Context) : SensorEventListener {
                         currentYaw = Math.toDegrees(orientation[0].toDouble()).toFloat()
 
                         // Calculate current rotation based on the pitch and roll angles
-                        currentRotation = ((currentRoll.toDegrees() + 90) % 180).toInt()
+                        currentRotation = ((currentRoll.toDegrees() ) % 180).toInt()
                     }
                 }
             }
@@ -117,7 +123,4 @@ class MotionSensorListener(context: Context) : SensorEventListener {
         return Math.toDegrees(this.toDouble()).toFloat()
     }
 
-    companion object {
-        private const val NS2S = 1.0f / 1000000000.0f
-    }
 }

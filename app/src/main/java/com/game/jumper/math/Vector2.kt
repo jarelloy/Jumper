@@ -34,5 +34,9 @@ data class Vector2(var x: Float = 0f, var y: Float = 0f) {
             y /= len
         }
     }
+
+    fun dotProduct(vec : Vector2) : Float {
+        return x * vec.x + y * vec.y
+    }
 }
 
