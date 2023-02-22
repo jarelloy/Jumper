@@ -33,7 +33,7 @@ class SampleScene(context: Context) : Scene(context) {
     private var isJumping : Boolean = false
     private var time : Float = 0f
 
-
+    private var isDie : Boolean = false
 
     init {
         gyroscopeRotationTracker.start()
@@ -130,9 +130,10 @@ class SampleScene(context: Context) : Scene(context) {
                 if (checkCollided(playerPos, platformPos)) {
                     score += 100
                     isJumping = true
+                    isDie = false
                     for (platformLoop in gameObjects) {
                         if (platformLoop.name == "Platform") {
-                            platformLoop.transform.position.y -= 3f //* GameLoopGl.deltaTime
+                            platformLoop.transform.position.y -= 3f * GameLoopGl.deltaTime
                         }
                     }
                 }
@@ -152,12 +153,15 @@ class SampleScene(context: Context) : Scene(context) {
             }
         }
 
-
-        /*if (isJumping) {
+        if (!isDie) {
             time += GameLoopGl.deltaTime
-            if (time > 0.2f)
-                isJumping = false
-        }*/
+            if (time > 1f)
+                isDie = true
+        }
+
+        if (isDie) {
+
+        }
     }
 }
 

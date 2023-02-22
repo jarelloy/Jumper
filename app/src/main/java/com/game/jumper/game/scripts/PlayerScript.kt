@@ -2,9 +2,14 @@ package com.game.jumper.game.scripts
 
 import android.util.Log
 import com.game.jumper.engine.objects.Script
+import com.game.jumper.math.Vector2
 import com.game.jumper.motionSensor.MotionSensorListener
 
 class PlayerScript  : Script() {
+
+    var gravity : Float = -0.05f
+    var position : Vector2 = Vector2(0.0f, 0.1f)
+    var velocity : Vector2 = Vector2(0f, 0f )
 
     override fun start() {
         //gyroscopeRotationTracker.start()
@@ -13,6 +18,7 @@ class PlayerScript  : Script() {
     override fun update() {
         super.update()
 
+        
 
         if (gameObject.transform.position.x > 5.5f)
             gameObject.transform.position.x = -5f
