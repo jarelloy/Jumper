@@ -9,8 +9,6 @@ import com.game.jumper.motionSensor.MotionSensorListener
 
 class GameLoopGl(context: Context, var renderer: JumperGLRenderer, private val surfaceHolder: SurfaceHolder) : Thread() {
 
-    private val gyroscopeRotationTracker = MotionSensorListener(context)
-    private var currentRotation = gyroscopeRotationTracker.getCurrentRotation()
     private lateinit var scene : SampleScene
     private var context = context
 
@@ -21,10 +19,10 @@ class GameLoopGl(context: Context, var renderer: JumperGLRenderer, private val s
         private set
     var averageFPS = 0.0
         private set
+    var lastTime = 0.0
 
     fun startLoop() {
         scene = SampleScene(context)
-        gyroscopeRotationTracker.start()
         isRunning = true
         renderer.loadScene(scene)
         scene.start()
@@ -54,8 +52,6 @@ class GameLoopGl(context: Context, var renderer: JumperGLRenderer, private val s
             updateCount++
             renderer.draw()
             frameCount++
-
-            currentRotation = gyroscopeRotationTracker.getCurrentRotation()
 
             // Pause game loop to not exceed target UPS
             elapsedTime = System.currentTimeMillis() - startTime
@@ -87,6 +83,7 @@ class GameLoopGl(context: Context, var renderer: JumperGLRenderer, private val s
                 startTime = System.currentTimeMillis()
                 Log.d("Average UPS: ", averageUPS.toString())
                 Log.d("Average FPS: ", averageFPS.toString())
+                Log.d("DeltaTime", deltaTime.toString())
             }
         }
     }
