@@ -13,12 +13,13 @@ import com.game.jumper.level.Platform
 import com.game.jumper.math.Vector2
 import com.game.jumper.motionSensor.MotionSensorListener
 import com.game.jumper.engine.GameLoopGl
+import com.game.jumper.level.Player
 import kotlin.math.sign
 
 class SampleScene(context: Context) : Scene(context) {
     //private var object1 : GameObject
     private var levelObject : GameObject
-    private var player : GameObject
+    private var playerObj : GameObject
 
     private var platform: Array<Platform>
     private var numPlatform : Int = 30
@@ -57,15 +58,15 @@ class SampleScene(context: Context) : Scene(context) {
         val quad1 = JumperQuad(context, "art/BPlayer_Idle.png")
         object1.quad = quad1*/
 
-        player = createNewObject()
-        player.name = "Player"
-        player.transform.position.x = 0f
-        player.transform.position.y = -1f
-        player.transform.scale.x = 1.0f
-        player.transform.scale.y = 1.0f
-        player.addScript<PlayerScript>()
+        playerObj = createNewObject()
+        playerObj.name = "Player"
+        playerObj.transform.position.x = 0f
+        playerObj.transform.position.y = -1f
+        playerObj.transform.scale.x = 1.0f
+        playerObj.transform.scale.y = 1.0f
+        playerObj.addScript<PlayerScript>()
 
-        player.quad = quad1
+        playerObj.quad = quad1
 
         platform = LevelGenerator().generateLevel(width, height, numPlatform)
 
@@ -102,7 +103,7 @@ class SampleScene(context: Context) : Scene(context) {
 
         // Player movement with gyro
         //TODO currently works with Extended controls but not IRL
-
+        /*
         if (currentRotation > 20)
             player.transform.position.x -= 0.2f
         else if (currentRotation > 10)
@@ -115,7 +116,7 @@ class SampleScene(context: Context) : Scene(context) {
         else if (currentRotation < -10)
             player.transform.position.x += 0.1f
         else if (currentRotation < -2)
-            player.transform.position.x += 0.01f
+            player.transform.position.x += 0.01f*/
 
         //Log.d("playerXPos", player.transform.position.x.toString())
         //Log.d("playerXPos", currentRotation.toString())
@@ -133,7 +134,7 @@ class SampleScene(context: Context) : Scene(context) {
                     isDie = false
                     for (platformLoop in gameObjects) {
                         if (platformLoop.name == "Platform") {
-                            platformLoop.transform.position.y -= 3f * GameLoopGl.deltaTime
+                            //platformLoop.transform.position.y -= 3f * GameLoopGl.deltaTime
                         }
                     }
                 }
@@ -154,7 +155,7 @@ class SampleScene(context: Context) : Scene(context) {
         }
 
         if (!isDie) {
-            time += GameLoopGl.deltaTime
+            //time += GameLoopGl.deltaTime
             if (time > 1f)
                 isDie = true
         }

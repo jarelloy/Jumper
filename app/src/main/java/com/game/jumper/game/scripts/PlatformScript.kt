@@ -11,10 +11,6 @@ class PlatformScript : Script() {
     override fun update() {
         super.update()
 
-        val gravity : Float = 0.05f
-
-        gameObject.transform.position.y += gravity
-
 
     }
 }

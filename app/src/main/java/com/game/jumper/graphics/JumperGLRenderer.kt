@@ -44,9 +44,9 @@ open class JumperGLRenderer(context: Context) : GLSurfaceView.Renderer {
             camPos = Vector2(x, y)
         }
 
-        fun getCamPos(): Vector2 {
+       /* fun getCamPos(): Vector2 {
             return camPos
-        }
+        }*/
     }
 
     fun loadGameLoop(gameLoop: GameLoopGl) {
@@ -84,12 +84,17 @@ open class JumperGLRenderer(context: Context) : GLSurfaceView.Renderer {
         // Set the camera position (View matrix)
         Matrix.setLookAtM(viewMatrix, 0, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1f, 0f)
 
+
         // Calculate the projection and view transformation
         Matrix.multiplyMM(vPMatrix, 0, projectionMatrix, 0, viewMatrix, 0)
     }
 
     override fun onDrawFrame(gl: GL10?) {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT)
+
+        Matrix.setLookAtM(viewMatrix, 0, camPos.x, camPos.y, 1f, 0f, 0f, 0f, 0f, 1f, 0f)
+        Matrix.multiplyMM(vPMatrix, 0, projectionMatrix, 0, viewMatrix, 0)
+        Log.d("CamPos", "${camPos.x}, ${camPos.y}")
 
         //mQuad.drawTextured(vPMatrix)
         scene.draw(vPMatrix)

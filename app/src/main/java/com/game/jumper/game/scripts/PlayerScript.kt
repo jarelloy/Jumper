@@ -3,7 +3,9 @@ package com.game.jumper.game.scripts
 import android.util.Log
 import com.game.jumper.engine.objects.Script
 import com.game.jumper.math.Vector2
+import com.game.jumper.graphics.JumperGLRenderer
 import com.game.jumper.motionSensor.MotionSensorListener
+import com.game.jumper.engine.GameLoopGl
 
 class PlayerScript  : Script() {
 
@@ -18,15 +20,27 @@ class PlayerScript  : Script() {
     override fun update() {
         super.update()
 
-        
+        velocity = Vector2( MotionSensorListener.currentRoll, 0f)
 
-        if (gameObject.transform.position.x > 5.5f)
-            gameObject.transform.position.x = -5f
+        gameObject.transform.position.y += gravity
 
-        if (gameObject.transform.position.x < -5.5f)
-            gameObject.transform.position.x = 5f
+        if (velocity.x > 20)
+            gameObject.transform.position.x -= 0.2f
+        else if (velocity.x > 10)
+            gameObject.transform.position.x -= 0.1f
+        else if (velocity.x > 2)
+            gameObject.transform.position.x -= 0.01f
 
-        if (gameObject.transform.position.y < -10f)
-            gameObject.transform.position.y = 10f
+        if (velocity.x < -20)
+            gameObject.transform.position.x += 0.2f
+        else if (velocity.x < -10)
+            gameObject.transform.position.x += 0.1f
+        else if (velocity.x < -2)
+            gameObject.transform.position.x += 0.01f
+
+        gameObject.transform.position.x += velocity.x * GameLoopGl.deltaTime.toFloat()
+
+        JumperGLRenderer.setCamPos(position.x, position.y)
+
     }
 }
