@@ -55,6 +55,12 @@
             android:exported="true">
         </activity>
 
+        <activity
+            android:label="Lose Screen"
+            android:name=".layout.PlayerLoseActivity"
+            android:exported="true">
+        </activity>
+
     </application>
 
 </manifest>

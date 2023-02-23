@@ -1,9 +1,13 @@
 package com.game.jumper.game
 
+import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.content.res.Resources
 import android.util.Log
+import android.view.KeyEvent
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.ViewModelProvider
 import com.game.jumper.R
 import com.game.jumper.databinding.ActivityGameBinding
@@ -20,6 +24,7 @@ import com.game.jumper.engine.GameLoopGl
 import com.game.jumper.level.Player
 import com.game.jumper.graphics.JumperGLRenderer
 import com.game.jumper.layout.GameActivity
+import com.game.jumper.layout.PlayerLoseActivity
 import com.game.jumper.model.HighScoreViewModel
 
 class SampleScene(context: Context) : Scene(context) {
@@ -48,6 +53,7 @@ class SampleScene(context: Context) : Scene(context) {
     private lateinit var deathDialog : Dialog
 
     init {
+        isDie =false
         gyroscopeRotationTracker.start()
         width = Resources.getSystem().displayMetrics.widthPixels
         height = Resources.getSystem().displayMetrics.heightPixels
@@ -101,11 +107,6 @@ class SampleScene(context: Context) : Scene(context) {
         playerObj.addScript<PlayerScript>()
 
         playerObj.quad = quad1
-    }
-
-    override fun start() {
-        super.start()
-        deathDialog = Dialog(context)
     }
 
     override fun update() {
@@ -170,13 +171,13 @@ class SampleScene(context: Context) : Scene(context) {
 
         if (isDie) {
             //TODO: if DIE go game over
-            gameBinding?.insertHighScoreToDatabase("XUANISCUTEEEEEEE", GameActivity.score)
-            
-            Log.d("Score", "Die")
-            deathDialog.setContentView(R.layout.popup_death)
-            deathDialog.setCancelable(false)
-            deathDialog.show()
             paused = true
+
+            gameBinding?.insertHighScoreToDatabase("XUANISCUTEEEEEEE", GameActivity.score)
+
+            Log.d("Score", "Die")
+            val intent = Intent(context, PlayerLoseActivity::class.java)
+            startActivity(context, intent, null)
         }
     }
 }
