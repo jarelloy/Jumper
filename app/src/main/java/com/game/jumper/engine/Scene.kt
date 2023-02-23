@@ -6,7 +6,7 @@ import com.game.jumper.math.Vector2
 
 open class Scene(context: Context) {
     protected var gameObjects = ArrayList<GameObject>()
-
+    protected val context = context
     var paused = false
 
     /** Touch control handler **/

@@ -30,6 +30,10 @@ class GameLoopGl(context: Context, var renderer: JumperGLRenderer) : Thread() {
         start()
     }
 
+    fun getCurrentContext() : Context {
+        return context
+    }
+
     fun setScenePause(pause : Boolean) {
         //scene = SampleScene(context)
         scene.paused = pause
