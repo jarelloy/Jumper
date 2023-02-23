@@ -7,7 +7,7 @@ import com.game.jumper.game.SampleScene
 import com.game.jumper.graphics.JumperGLRenderer
 import com.game.jumper.motionSensor.MotionSensorListener
 
-class GameLoopGl(context: Context, var renderer: JumperGLRenderer, private val surfaceHolder: SurfaceHolder) : Thread() {
+class GameLoopGl(context: Context, var renderer: JumperGLRenderer) : Thread() {
 
     private lateinit var scene : SampleScene
     private var context = context
@@ -31,6 +31,7 @@ class GameLoopGl(context: Context, var renderer: JumperGLRenderer, private val s
     }
 
     fun setScenePause(pause : Boolean) {
+        //scene = SampleScene(context)
         scene.paused = pause
     }
 
