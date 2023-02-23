@@ -14,8 +14,6 @@ import com.game.jumper.R
 import com.game.jumper.databinding.ActivityScoreboardBinding
 import com.game.jumper.model.HighScoreAdapter
 import com.game.jumper.model.HighScoreViewModel
-import edu.singaporetech.iwsp.ScoreboardDatabase
-import edu.singaporetech.iwsp.ScoreAdapter
 
 class ScoreboardActivity : AppCompatActivity() {
     private lateinit var binding: ActivityScoreboardBinding
