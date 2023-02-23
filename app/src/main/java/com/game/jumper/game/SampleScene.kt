@@ -1,5 +1,6 @@
 package com.game.jumper.game
 
+import android.app.Dialog
 import android.content.Context
 import android.content.res.Resources
 import android.util.Log
@@ -162,6 +163,7 @@ class SampleScene(context: Context) : Scene(context) {
         if (isDie) {
             //TODO: if DIE go game over
             gameBinding?.insertHighScoreToDatabase("XUANISCUTEEEEEEE", GameActivity.score)
+            
             Log.d("Score", "Die")
         }
     }

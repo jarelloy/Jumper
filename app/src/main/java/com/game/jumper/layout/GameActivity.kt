@@ -30,7 +30,6 @@ class GameActivity : AppCompatActivity() {
     private lateinit var highScoreViewModel : HighScoreViewModel
     private var glRenderer = JumperGLRenderer(this)
     private lateinit var pauseDialog: Dialog
-    private var gameloop = GameLoopGl(this, glRenderer)
 
     lateinit var runnable: Runnable
 
@@ -73,7 +72,7 @@ class GameActivity : AppCompatActivity() {
             pauseBtn.isEnabled = false
             pauseBtn.alpha = 0f
 
-            gameloop.setScenePause(true)
+            game.gameLoop.setScenePause(true)
 
             if (!pauseMenuAdded) {
                 pauseMenuAdded = true
@@ -85,6 +84,7 @@ class GameActivity : AppCompatActivity() {
                         pauseBtn.isEnabled = true
                         pauseBtn.alpha = 1f
                         pauseMenuAdded = false
+                        game.gameLoop.setScenePause(false)
                         true
                     } else {
                         false
