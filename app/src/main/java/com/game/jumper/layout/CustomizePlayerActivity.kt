@@ -22,7 +22,6 @@ class CustomizePlayerActivity : AppCompatActivity() {
     private lateinit var powerUpViewModel: PowerUpViewModel
     private lateinit var powerUpAdapter : PowerUpAdapter
     private var powerUpData  : List<PowerUp> = emptyList()
-    //val myDataset = CustomizationDatabase().loadCosmetic()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCustomizePlayerBinding.inflate(layoutInflater)
@@ -51,12 +50,13 @@ class CustomizePlayerActivity : AppCompatActivity() {
         powerUpViewModel.powerUps.observe(this, Observer { powerUps ->
             if (powerUps.isEmpty()) {
                 // Database is empty, insert initial data
-                val initialPowerUps = loadPowerUps()
-                loadPowerUpToDatabase(initialPowerUps)
+                val powerUps = loadPowerUps()
+                loadPowerUpToDatabase(powerUps)
             }
             // Database has data, update the adapter
             powerUpAdapter.setData(powerUps)
         })
+        powerUpData = loadPowerUps()
 
         powerUpAdapter.setOnItemClickListener(object : PowerUpAdapter.OnItemClickListener {
             override fun onItemClick(position: Int) {
@@ -67,16 +67,16 @@ class CustomizePlayerActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        val recyclerView = findViewById<RecyclerView>(R.id.scoreboardRecycle)
-        val scrollPosition = recyclerView.layoutManager?.onSaveInstanceState()
-        outState.putParcelable("scroll_position", scrollPosition)
+//        val recyclerView = findViewById<RecyclerView>(R.id.scoreboardRecycle)
+//        val scrollPosition = recyclerView.layoutManager?.onSaveInstanceState()
+//        outState.putParcelable("scroll_position", scrollPosition)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        val recyclerView = findViewById<RecyclerView>(R.id.scoreboardRecycle)
-        val scrollPosition = savedInstanceState.getParcelable<Parcelable>("scroll_position")
-        recyclerView.layoutManager?.onRestoreInstanceState(scrollPosition)
+//        val recyclerView = findViewById<RecyclerView>(R.id.scoreboardRecycle)
+//        val scrollPosition = savedInstanceState.getParcelable<Parcelable>("scroll_position")
+//        recyclerView.layoutManager?.onRestoreInstanceState(scrollPosition)
     }
 
     fun loadPowerUpToDatabase(list : List<PowerUp> ) {
@@ -91,15 +91,10 @@ class CustomizePlayerActivity : AppCompatActivity() {
 
     fun loadPowerUps(): List<PowerUp>
     {
-//        return listOf<PowerUp>(
-//            PowerUp(0, R.drawable.hat, "Idk what to put here.."),
-//            PowerUp(0, R.drawable.hat2, "Looks cooler LOL")
-//        )
-        return emptyList()
+        return listOf<PowerUp>(
+            PowerUp(0, R.drawable.hat, "Idk what to put here.."),
+            PowerUp(0, R.drawable.hat2, "Looks cooler LOL")
+        )
     }
 
-//    fun loadPowerUpsFromDatabase()
-//    {
-//        powerUpData = powerUpViewModel.powerUps
-//    }
 }
