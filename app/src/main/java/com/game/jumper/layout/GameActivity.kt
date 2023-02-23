@@ -90,7 +90,7 @@ class GameActivity : AppCompatActivity() {
     fun insertHighScoreToDatabase(userName: String, userScore: Int ) {
         val entry = HighScore(0, userName , userScore)
         highScoreViewModel.insertHighScore(entry)
-        Toast.makeText(this, "Successfully added!", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, "Successfully added!", Toast.LENGTH_SHORT).show()
         Log.d("GameActivity", userScore.toString())
     }
 }

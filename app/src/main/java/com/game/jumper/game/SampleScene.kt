@@ -114,7 +114,7 @@ class SampleScene(context: Context) : Scene(context) {
 
                 val platformPos = Vector2(gameObjects[i].transform.position.x, gameObjects[i].transform.position.y)
 
-                if (checkCollided(playerPos, platformPos) && PlayerScript.velocity.y < -.5f) {
+                if (checkCollided(playerPos, PlayerScript.velocity, platformPos) && PlayerScript.velocity.y < -.5f) {
 
                     if (!platform[i].isJumped) {
                         score += 100
@@ -168,18 +168,21 @@ class SampleScene(context: Context) : Scene(context) {
     }
 }
 
-private fun checkCollided( playerPos : Vector2, platformPos : Vector2) : Boolean {
+private fun checkCollided( playerPos : Vector2, playerVel:Vector2, platformPos : Vector2) : Boolean {
     val playerVector = Vector2(playerPos.x - platformPos.x, playerPos.y - platformPos.y - .5f)
     val upVector = Vector2(0f,1f)
 
     val dot = upVector.dotProduct((playerVector))
     // check if it is above the platform first
     if ((playerPos.x < (platformPos.x + 1.5f) && playerPos.x > (platformPos.x - 1.5f)) && dot >= -1f) {
-        //Log.d("CheckCollision", "Above")
-        // check if it hits 0
-        if(dot <= 0f && dot >= -6f) {
-            //Log.d("CheckCollision", "Yes, $dot")
-            return true
+        // Check if the player on next frame will be below the platform
+        if ((playerPos.y + playerVel.y < platformPos.y))
+        {
+            // check if it hits 0
+            if(dot <= 0f && dot >= -6f) {
+                //Log.d("CheckCollision", "Yes, $dot")
+                return true
+            }
         }
     }
     return false
