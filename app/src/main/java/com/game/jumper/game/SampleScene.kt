@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.res.Resources
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
+import com.game.jumper.R
 import com.game.jumper.databinding.ActivityGameBinding
 import com.game.jumper.engine.GameObject
 import com.game.jumper.engine.Scene
@@ -43,6 +44,8 @@ class SampleScene(context: Context) : Scene(context) {
     private var time : Float = 0f
 
     private var isDie : Boolean = false
+
+    private lateinit var deathDialog : Dialog
 
     init {
         gyroscopeRotationTracker.start()
@@ -100,9 +103,14 @@ class SampleScene(context: Context) : Scene(context) {
         playerObj.quad = quad1
     }
 
+    override fun start() {
+        super.start()
+        deathDialog = Dialog(context)
+    }
+
     override fun update() {
         super.update()
-
+        if(paused) return
         currentRotation = gyroscopeRotationTracker.getCurrentRoll()
 
         val player = findObject("Player")
@@ -165,6 +173,10 @@ class SampleScene(context: Context) : Scene(context) {
             gameBinding?.insertHighScoreToDatabase("XUANISCUTEEEEEEE", GameActivity.score)
             
             Log.d("Score", "Die")
+            deathDialog.setContentView(R.layout.popup_death)
+            deathDialog.setCancelable(false)
+            deathDialog.show()
+            paused = true
         }
     }
 }
