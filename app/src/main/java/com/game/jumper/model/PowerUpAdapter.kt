@@ -39,6 +39,10 @@ class PowerUpAdapter : RecyclerView.Adapter<PowerUpAdapter.MyViewHolder>(){
         holder.txtViewCosmeticDesc.setOnClickListener {
             listener?.onItemClick(position)
         }
+
+        holder.imgCosmetic.setOnClickListener {
+            listener?.onItemClick(position)
+        }
     }
 
     fun setData(powerUps : List<PowerUp>)

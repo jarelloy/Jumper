@@ -15,12 +15,6 @@ class PowerUpRepository(private val powerUpDao: PowerUpDao) {
             powerUpDao.insert(powerUp)
     }
 
-    suspend fun getPowerUpById(id: Int): PowerUp? {
-        return withContext(Dispatchers.IO) {
-            powerUpDao.getPowerUpById(id)
-        }
-    }
-
     fun getCount(): Int = runBlocking {
         val count = async {
             powerUpDao.getCount()
@@ -29,9 +23,4 @@ class PowerUpRepository(private val powerUpDao: PowerUpDao) {
         count.await()
     }
 
-//    suspend fun getAllPowerUps(): LiveData<List<PowerUp>> {
-//        return withContext(Dispatchers.IO) {
-//            powerUpDao.getAllPowerUps()
-//        }
-//    }
 }

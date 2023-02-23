@@ -22,6 +22,9 @@ class CustomizePlayerActivity : AppCompatActivity() {
     private lateinit var powerUpViewModel: PowerUpViewModel
     private lateinit var powerUpAdapter : PowerUpAdapter
     private var powerUpData  : List<PowerUp> = emptyList()
+    companion object{
+        lateinit var chosenPowerUp : PowerUp
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCustomizePlayerBinding.inflate(layoutInflater)
@@ -61,6 +64,7 @@ class CustomizePlayerActivity : AppCompatActivity() {
         powerUpAdapter.setOnItemClickListener(object : PowerUpAdapter.OnItemClickListener {
             override fun onItemClick(position: Int) {
                 imageSelected.setImageResource(powerUpData[position].image)
+                chosenPowerUp = powerUpData[position]
             }
         })
     }

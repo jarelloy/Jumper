@@ -12,9 +12,6 @@ interface PowerUpDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(powerUp: PowerUp)
 
-    @Query("SELECT * FROM power_ups_table WHERE id = :id")
-    suspend fun getPowerUpById(id: Int): PowerUp?
-
     @Query("SELECT * FROM power_ups_table")
     fun getAllPowerUps(): LiveData<List<PowerUp>>
 
