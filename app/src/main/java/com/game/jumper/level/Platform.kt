@@ -6,6 +6,6 @@ enum class PlatformType {
 
 class Platform (val x: Float, val y: Float, val type: PlatformType = PlatformType.NORMAL) {
     val sizeX : Float = 3f
-    val sizeY : Float = 0.2f
+    val sizeY : Float = 0.5f
     var isJumped : Boolean = false
 }

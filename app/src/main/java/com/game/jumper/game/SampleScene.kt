@@ -84,7 +84,7 @@ class SampleScene(context: Context) : Scene(context) {
         levelObject.transform.position.x = 0f
         levelObject.transform.position.y = -5f
         levelObject.transform.scale.x = 3f
-        levelObject.transform.scale.y = 0.2f
+        levelObject.transform.scale.y = 0.5f
         levelObject.addScript<PlatformScript>()
         levelObject.quad = quad2
         platform.add(Platform(levelObject.transform.position.x, levelObject.transform.position.y))
@@ -93,8 +93,8 @@ class SampleScene(context: Context) : Scene(context) {
         playerObj.name = "Player"
         playerObj.transform.position.x = 0f
         playerObj.transform.position.y = -1f
-        playerObj.transform.scale.x = 1.0f
-        playerObj.transform.scale.y = 1.0f
+        playerObj.transform.scale.x = 1.25f
+        playerObj.transform.scale.y = 1.25f
         playerObj.addScript<PlayerScript>()
 
         playerObj.quad = quad1
