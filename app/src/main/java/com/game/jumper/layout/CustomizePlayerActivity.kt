@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.game.jumper.MainActivity
 import com.game.jumper.R
+import com.game.jumper.database.PlayerPreferences
 import com.game.jumper.database.entity.PowerUp
 import com.game.jumper.databinding.ActivityCustomizePlayerBinding
 import com.game.jumper.model.PowerUpAdapter
@@ -23,7 +24,7 @@ class CustomizePlayerActivity : AppCompatActivity() {
     private lateinit var powerUpAdapter : PowerUpAdapter
     private var powerUpData  : List<PowerUp> = emptyList()
     companion object{
-        lateinit var chosenPowerUp : PowerUp
+        var chosenPowerUp : PowerUp? = null
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,8 +49,6 @@ class CustomizePlayerActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        //powerUpData = loadPowerUps()
-        //loadPowerUpToDatabase(powerUpData)
         powerUpViewModel.powerUps.observe(this, Observer { powerUps ->
             if (powerUps.isEmpty()) {
                 // Database is empty, insert initial data
@@ -61,12 +60,21 @@ class CustomizePlayerActivity : AppCompatActivity() {
         })
         powerUpData = loadPowerUps()
 
+        val playerPreferences = PlayerPreferences.getInstance(this)
+        chosenPowerUp = playerPreferences.getPrefDesc()
+            ?.let { PowerUp(playerPreferences.getPrefId(), playerPreferences.getPrefImage(), it) }
+        chosenPowerUp?.let { imageSelected.setImageResource(it.image) }
+
         powerUpAdapter.setOnItemClickListener(object : PowerUpAdapter.OnItemClickListener {
             override fun onItemClick(position: Int) {
                 imageSelected.setImageResource(powerUpData[position].image)
                 chosenPowerUp = powerUpData[position]
+                playerPreferences.updatePrefId(chosenPowerUp!!.id)
+                playerPreferences.updatePrefImage(chosenPowerUp!!.image)
+                playerPreferences.updatePrefDesc(chosenPowerUp!!.description)
             }
         })
+
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
