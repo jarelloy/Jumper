@@ -118,11 +118,10 @@ class SampleScene(context: Context) : Scene(context) {
 
                     if (!platform[i].isJumped) {
                         score += 100
+                        GameActivity.UpdateScore(score)
                         platform[i].isJumped = true
                     }
-                    //GameActivity.UpdateScore(score)
-                    //GameActivity.score = score
-                    Log.d("Score", "$score")
+
 
                     isJumping = true
                     PlayerScript.velocity.y = 5f
@@ -162,7 +161,7 @@ class SampleScene(context: Context) : Scene(context) {
 
         if (isDie) {
             //TODO: if DIE go game over
-            gameBinding?.insertHighScoreToDatabase("XUANISCUTEEEEEEE", 999)
+            gameBinding?.insertHighScoreToDatabase("XUANISCUTEEEEEEE", GameActivity.score)
             Log.d("Score", "Die")
         }
     }
