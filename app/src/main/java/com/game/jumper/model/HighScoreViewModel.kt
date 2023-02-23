@@ -30,18 +30,4 @@ class HighScoreViewModel(application: Application) : AndroidViewModel(applicatio
         return highScoreRepo.getCount()
     }
 
-//  var highScores: LiveData<List<HighScore>> = MutableLiveData(emptyList())
-//
-//    fun insertHighScore(highScore: HighScore) {
-//        viewModelScope.launch {
-//            repository.insertHighScore(highScore)
-//        }
-//    }
-//
-//    fun loadHighScores(){
-//        viewModelScope.launch {
-//            val scores = repository.getHighScoresForUser()
-//            (highScores as MutableLiveData<List<HighScore>>).value = scores
-//        }
-//    }
 }
