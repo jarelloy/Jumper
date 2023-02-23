@@ -61,9 +61,18 @@ class CustomizePlayerActivity : AppCompatActivity() {
         powerUpData = loadPowerUps()
 
         val playerPreferences = PlayerPreferences.getInstance(this)
-        chosenPowerUp = playerPreferences.getPrefDesc()
-            ?.let { PowerUp(playerPreferences.getPrefId(), playerPreferences.getPrefImage(), it) }
-        chosenPowerUp?.let { imageSelected.setImageResource(it.image) }
+        if(playerPreferences.getPrefId() != null && playerPreferences.getPrefImage() != null
+            && playerPreferences.getPrefDesc() != null) {
+                chosenPowerUp = playerPreferences.getPrefDesc()
+                    ?.let {
+                        PowerUp(
+                            playerPreferences.getPrefId(),
+                            playerPreferences.getPrefImage(),
+                            it
+                        )
+                    }
+                //chosenPowerUp?.let { imageSelected.setImageResource(it.image) }
+        }
 
         powerUpAdapter.setOnItemClickListener(object : PowerUpAdapter.OnItemClickListener {
             override fun onItemClick(position: Int) {
@@ -104,8 +113,9 @@ class CustomizePlayerActivity : AppCompatActivity() {
     fun loadPowerUps(): List<PowerUp>
     {
         return listOf<PowerUp>(
-            PowerUp(0, R.drawable.hat, "Idk what to put here.."),
-            PowerUp(0, R.drawable.hat2, "Looks cooler LOL")
+            PowerUp(0, R.drawable.hat1, "Brella, it is fo’ drizzle."),
+            PowerUp(0, R.drawable.hat2, "You need a crown."),
+            PowerUp(0, R.drawable.hat3, "Hat’s how we roll.")
         )
     }
 
