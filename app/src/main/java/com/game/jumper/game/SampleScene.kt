@@ -102,14 +102,14 @@ class SampleScene(context: Context) : Scene(context) {
         hatObject.name = "Hat"
         hatObject.transform.position.x = 0f
         hatObject.transform.position.y = 0f
-        hatObject.transform.scale.x = 1.0f
-        hatObject.transform.scale.y = 1.0f
+        hatObject.transform.scale.x = 0.5f
+        hatObject.transform.scale.y = 1.25f
         hatObject.addScript<HatScript>()
 
         if (CustomizePlayerActivity.chosenPowerUp?.id  != null) {
             var quadHat : JumperQuad
 
-            if (CustomizePlayerActivity.chosenPowerUp?.id!! + 1 == 2) {
+            if (CustomizePlayerActivity.chosenPowerUp?.id!! + 1 == 5) {
                 quadHat = JumperQuad(context, "art/BPlayer_Idle.png")
                 HatScript.hat = CustomizePlayerActivity.chosenPowerUp?.id!! + 1
             }
