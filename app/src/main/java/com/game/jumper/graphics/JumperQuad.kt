@@ -3,6 +3,7 @@ package com.game.jumper.graphics
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.opengl.GLES20
+import android.opengl.GLES20.*
 import android.opengl.GLUtils
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
@@ -124,6 +125,8 @@ open class JumperQuad {
 
         // Add program to OpenGL ES environment
         GLES20.glUseProgram(shaderProgram)
+        GLES20.glEnable(GL_BLEND)
+        GLES20.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 
         // get handle to vertex shader's vPosition member
         posHandle = GLES20.glGetAttribLocation(shaderProgram, "vPosition").also {
@@ -167,6 +170,8 @@ open class JumperQuad {
 
         // Add program to OpenGL ES environment
         GLES20.glUseProgram(shaderProgram)
+        GLES20.glEnable(GL_BLEND)
+        GLES20.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 
         // get handle to vertex shader's vPosition member
         posHandle = GLES20.glGetAttribLocation(shaderProgram, "vPosition").also {
