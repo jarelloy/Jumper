@@ -3,6 +3,7 @@ package com.game.jumper
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatDelegate
 import com.game.jumper.databinding.ActivityMainBinding
 import com.game.jumper.graphics.JumperGLSurfaceView
 import com.game.jumper.engine.GameGl
@@ -10,6 +11,7 @@ import com.game.jumper.layout.CustomizePlayerActivity
 import com.game.jumper.layout.GameActivity
 import com.game.jumper.layout.InstructionActivity
 import com.game.jumper.layout.ScoreboardActivity
+import com.google.android.material.internal.ContextUtils.getActivity
 import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {
@@ -22,6 +24,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         binding.playgameBtn.setOnClickListener {
             //game = GameGl(this)
@@ -49,6 +52,7 @@ class MainActivity : AppCompatActivity() {
         //setContentView(binding.root)
 
         binding.exitgameBtn.setOnClickListener {
+            finishAffinity()
             exitProcess(0)
         }
     }

@@ -63,7 +63,7 @@ open class JumperGLRenderer(context: Context) : GLSurfaceView.Renderer {
 
     override fun onSurfaceCreated(gl: GL10?, config: EGLConfig?) {
         // set bg color to black
-        GLES20.glClearColor(0.5f, 0.5f, 0.5f, 1.0f)
+        GLES20.glClearColor(0.24f, 0.26f, .44f, 1.0f)
 
         // load textured quads here
         // first param is gameContext

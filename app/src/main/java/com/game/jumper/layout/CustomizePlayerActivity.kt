@@ -18,6 +18,8 @@ import com.game.jumper.database.entity.PowerUp
 import com.game.jumper.databinding.ActivityCustomizePlayerBinding
 import com.game.jumper.model.PowerUpAdapter
 import com.game.jumper.model.PowerUpViewModel
+import kotlin.system.exitProcess
+
 class CustomizePlayerActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCustomizePlayerBinding
     private lateinit var powerUpViewModel: PowerUpViewModel
@@ -45,6 +47,7 @@ class CustomizePlayerActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         customizebackBtn.setOnClickListener {
+            finish()
             val intent = Intent (this, MainActivity::class.java)
             startActivity(intent)
         }
@@ -118,8 +121,8 @@ class CustomizePlayerActivity : AppCompatActivity() {
             PowerUp(0, R.drawable.hat1, "Brella, it is fo’ drizzle.", "art/hat1.png"),
             PowerUp(0, R.drawable.hat2, "You need a crown.", "art/hat2.png"),
             PowerUp(0, R.drawable.hat3, "Hat’s how we roll.", "art/hat3.png"),
-            PowerUp(0, R.drawable.hat4, "Leaf me alone.", "art/hat4.png")
+            PowerUp(0, R.drawable.hat4, "Leaf me alone.", "art/hat4.png"),
+            PowerUp(0, R.drawable.hat5, "My Kid.", "art/BPlayer_Idle.png")
         )
     }
-
 }

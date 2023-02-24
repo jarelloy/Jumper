@@ -53,7 +53,6 @@ class SampleScene(context: Context) : Scene(context) {
     private lateinit var deathDialog : Dialog
 
     init {
-        isDie =false
         gyroscopeRotationTracker.start()
         width = Resources.getSystem().displayMetrics.widthPixels
         height = Resources.getSystem().displayMetrics.heightPixels
@@ -62,7 +61,6 @@ class SampleScene(context: Context) : Scene(context) {
         quad2 = JumperQuad(context, "art/platform.png")
 
         gameObjects.clear()
-        paused = false
 
         // create level using LevelGenerator
         platform = LevelGenerator().generateLevel(width, height, numPlatform)
@@ -102,23 +100,32 @@ class SampleScene(context: Context) : Scene(context) {
         hatObject.name = "Hat"
         hatObject.transform.position.x = 0f
         hatObject.transform.position.y = 0f
-        hatObject.transform.scale.x = 0.5f
-        hatObject.transform.scale.y = 1.25f
+        hatObject.transform.scale.x = 1.25f
+        hatObject.transform.scale.y = 0.5f
         hatObject.addScript<HatScript>()
 
-        if (CustomizePlayerActivity.chosenPowerUp?.id  != null) {
+        if (CustomizePlayerActivity.chosenPowerUp?.filepath  != null) {
             var quadHat : JumperQuad
 
-            if (CustomizePlayerActivity.chosenPowerUp?.id!! + 1 == 5) {
-                quadHat = JumperQuad(context, "art/BPlayer_Idle.png")
-                HatScript.hat = CustomizePlayerActivity.chosenPowerUp?.id!! + 1
+            quadHat = JumperQuad(context, CustomizePlayerActivity.chosenPowerUp?.filepath.toString())
+
+            HatScript.hat = false
+
+            if (CustomizePlayerActivity.chosenPowerUp?.filepath.toString() == "art/BPlayer_Idle.png" ) {
+                hatObject.transform.scale.y = 1.25f
+                HatScript.hat = true
             }
-            else
-                quadHat = JumperQuad(context, "hats/hat${CustomizePlayerActivity.chosenPowerUp?.id!! + 1}.png")
+
             hatObject.quad = quadHat
             Log.d("hat Texture", "${CustomizePlayerActivity.chosenPowerUp?.image.toString()}")
         }
 
+    }
+
+    override fun start() {
+        super.start()
+        isDie =false
+        paused = false
     }
 
     override fun update() {
@@ -184,9 +191,6 @@ class SampleScene(context: Context) : Scene(context) {
             //TODO: if DIE go game over
             paused = true
 
-            gameBinding?.insertHighScoreToDatabase("XUANISCUTEEEEEEE", GameActivity.score)
-
-            Log.d("Score", "Die")
             val intent = Intent(context, PlayerLoseActivity::class.java)
             startActivity(context, intent, null)
         }

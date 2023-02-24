@@ -147,4 +147,8 @@ class GameActivity : AppCompatActivity() {
         //Toast.makeText(this, "Successfully added!", Toast.LENGTH_SHORT).show()
         Log.d("GameActivity", userScore.toString())
     }
+
+    override fun onBackPressed() {
+        /*Do Nothing*/
+    }
 }

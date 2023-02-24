@@ -10,6 +10,7 @@ import com.game.jumper.R
 import com.game.jumper.database.entity.HighScore
 import com.game.jumper.databinding.ActivityLoseBinding
 import com.game.jumper.model.HighScoreViewModel
+import kotlin.system.exitProcess
 
 class PlayerLoseActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoseBinding
