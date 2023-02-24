@@ -22,7 +22,7 @@ import com.game.jumper.layout.GameActivity
 import com.game.jumper.model.HighScoreViewModel
 
 class SampleScene(context: Context) : Scene(context) {
-    //private var hatObject : GameObject
+    //private var object1 : GameObject
     private val gameBinding: GameActivity? = context as? GameActivity
     private var levelObject : GameObject
 
@@ -55,6 +55,16 @@ class SampleScene(context: Context) : Scene(context) {
         gameObjects.clear()
         paused = false
 
+        /*object1 = createNewObject()
+        object1.name = "Spinning Object"
+        object1.transform.position.x = 0f
+        object1.transform.position.y = 0f
+        object1.transform.scale.x = 1.0f
+        object1.transform.scale.y = 1.0f
+        object1.addScript<SpinningScript>()
+        val quad1 = JumperQuad(context, "art/BPlayer_Idle.png")
+        object1.quad = quad1*/
+
         // create level using LevelGenerator
         platform = LevelGenerator().generateLevel(width, height, numPlatform)
 
@@ -86,17 +96,8 @@ class SampleScene(context: Context) : Scene(context) {
         playerObj.transform.scale.x = 1.25f
         playerObj.transform.scale.y = 1.25f
         playerObj.addScript<PlayerScript>()
-        playerObj.quad = quad1
 
-        /*hatObject = createNewObject()
-        hatObject.name = "Spinning Object"
-        hatObject.transform.position.x = 0f
-        hatObject.transform.position.y = 0f
-        hatObject.transform.scale.x = 1.0f
-        hatObject.transform.scale.y = 1.0f
-        hatObject.addScript<SpinningScript>()
-        val quadHat = JumperQuad(context, "art/BPlayer_Idle.png")
-        hatObject.quad = quadHat*/
+        playerObj.quad = quad1
     }
 
     override fun update() {
