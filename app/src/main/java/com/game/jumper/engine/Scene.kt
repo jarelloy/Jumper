@@ -48,7 +48,7 @@ open class Scene(context: Context) {
         return gameObjects.first{ gameObject -> gameObject.name == name }
     }
 
-    fun start() {
+    open fun start() {
         activeScene = this
         for(i in 0 until gameObjects.count())
             gameObjects[i].start()

@@ -1,6 +1,7 @@
 package com.game.jumper.engine
 
 import android.content.Context
+import android.os.Looper
 import android.util.Log
 import android.view.SurfaceHolder
 import com.game.jumper.game.SampleScene
@@ -25,7 +26,6 @@ class GameLoopGl(context: Context, var renderer: JumperGLRenderer) : Thread() {
         scene = SampleScene(context)
         isRunning = true
         renderer.loadScene(scene)
-        scene.start()
 
         start()
     }
@@ -47,7 +47,9 @@ class GameLoopGl(context: Context, var renderer: JumperGLRenderer) : Thread() {
         var startTime: Long
         var elapsedTime: Long
         var sleepTime: Long
+        Looper.prepare()
 
+        scene.start()
         // Game loop
         startTime = System.currentTimeMillis()
         while (isRunning) {

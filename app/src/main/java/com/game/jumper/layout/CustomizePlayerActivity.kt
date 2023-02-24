@@ -116,7 +116,8 @@ class CustomizePlayerActivity : AppCompatActivity() {
         return listOf<PowerUp>(
             PowerUp(0, R.drawable.hat1, "Brella, it is fo’ drizzle."),
             PowerUp(0, R.drawable.hat2, "You need a crown."),
-            PowerUp(0, R.drawable.hat3, "Hat’s how we roll.")
+            PowerUp(0, R.drawable.hat3, "Hat’s how we roll."),
+            PowerUp(0, R.drawable.hat4, "Leaf me alone.")
         )
     }
 
