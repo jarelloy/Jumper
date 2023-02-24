@@ -237,4 +237,8 @@ open class JumperQuad {
             GLES20.glDisableVertexAttribArray(it)
         }
     }
+
+    fun updateTexture(text : Int) {
+        texDataHandle = text
+    }
 }

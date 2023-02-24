@@ -10,6 +10,7 @@ import com.game.jumper.layout.CustomizePlayerActivity
 import com.game.jumper.layout.GameActivity
 import com.game.jumper.layout.InstructionActivity
 import com.game.jumper.layout.ScoreboardActivity
+import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {
 
@@ -47,5 +48,8 @@ class MainActivity : AppCompatActivity() {
         }
         //setContentView(binding.root)
 
+        binding.exitgameBtn.setOnClickListener {
+            exitProcess(0)
+        }
     }
 }

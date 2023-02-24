@@ -1,11 +1,8 @@
 package com.game.jumper.game
 
-import android.app.Dialog
 import android.content.Context
 import android.content.res.Resources
 import android.util.Log
-import androidx.lifecycle.ViewModelProvider
-import com.game.jumper.databinding.ActivityGameBinding
 import com.game.jumper.engine.GameObject
 import com.game.jumper.engine.Scene
 import com.game.jumper.game.scripts.PlatformScript
@@ -16,13 +13,14 @@ import com.game.jumper.level.Platform
 import com.game.jumper.math.Vector2
 import com.game.jumper.motionSensor.MotionSensorListener
 import com.game.jumper.engine.GameLoopGl
-import com.game.jumper.level.Player
+import com.game.jumper.game.scripts.HatScript
 import com.game.jumper.graphics.JumperGLRenderer
 import com.game.jumper.layout.GameActivity
 import com.game.jumper.model.HighScoreViewModel
+import com.game.jumper.layout.CustomizePlayerActivity
 
 class SampleScene(context: Context) : Scene(context) {
-    //private var object1 : GameObject
+    private var hatObject : GameObject
     private val gameBinding: GameActivity? = context as? GameActivity
     private var levelObject : GameObject
 
@@ -36,7 +34,6 @@ class SampleScene(context: Context) : Scene(context) {
     private var quad2 : JumperQuad
 
     private val gyroscopeRotationTracker = MotionSensorListener(context)
-    private var currentRotation = gyroscopeRotationTracker.getCurrentRoll()
 
     private var score : Int = 0
     private var isJumping : Boolean = false
@@ -54,16 +51,6 @@ class SampleScene(context: Context) : Scene(context) {
 
         gameObjects.clear()
         paused = false
-
-        /*object1 = createNewObject()
-        object1.name = "Spinning Object"
-        object1.transform.position.x = 0f
-        object1.transform.position.y = 0f
-        object1.transform.scale.x = 1.0f
-        object1.transform.scale.y = 1.0f
-        object1.addScript<SpinningScript>()
-        val quad1 = JumperQuad(context, "art/BPlayer_Idle.png")
-        object1.quad = quad1*/
 
         // create level using LevelGenerator
         platform = LevelGenerator().generateLevel(width, height, numPlatform)
@@ -98,12 +85,32 @@ class SampleScene(context: Context) : Scene(context) {
         playerObj.addScript<PlayerScript>()
 
         playerObj.quad = quad1
+
+        hatObject = createNewObject()
+        hatObject.name = "Hat"
+        hatObject.transform.position.x = 0f
+        hatObject.transform.position.y = 0f
+        hatObject.transform.scale.x = 1.0f
+        hatObject.transform.scale.y = 1.0f
+        hatObject.addScript<HatScript>()
+
+        if (CustomizePlayerActivity.chosenPowerUp?.id  != null) {
+            var quadHat : JumperQuad
+
+            if (CustomizePlayerActivity.chosenPowerUp?.id!! + 1 == 2) {
+                quadHat = JumperQuad(context, "art/BPlayer_Idle.png")
+                HatScript.hat = CustomizePlayerActivity.chosenPowerUp?.id!! + 1
+            }
+            else
+                quadHat = JumperQuad(context, "hats/hat${CustomizePlayerActivity.chosenPowerUp?.id!! + 1}.png")
+            hatObject.quad = quadHat
+            Log.d("hat Texture", "${CustomizePlayerActivity.chosenPowerUp?.image.toString()}")
+        }
+
     }
 
     override fun update() {
         super.update()
-
-        currentRotation = gyroscopeRotationTracker.getCurrentRoll()
 
         val player = findObject("Player")
 

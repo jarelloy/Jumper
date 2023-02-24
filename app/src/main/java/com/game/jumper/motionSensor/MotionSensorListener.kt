@@ -21,12 +21,13 @@ class MotionSensorListener(context: Context) : SensorEventListener {
 
     private var lastTimestamp: Long = 0
 
+    var currentPitch: Float = 0f
+    var currentRoll: Float = 0f
+    var currentYaw: Float = 0f
+    private val NS2S = 1.0f / 1000000000.0f
+
     companion object {
         var currentRotation: Int = 0
-        var currentPitch: Float = 0f
-        var currentRoll: Float = 0f
-        var currentYaw: Float = 0f
-        private const val NS2S = 1.0f / 1000000000.0f
     }
 
 
@@ -90,7 +91,7 @@ class MotionSensorListener(context: Context) : SensorEventListener {
         }
         lastTimestamp = event?.timestamp ?: lastTimestamp
 
-        //Log.d (tag, "Current Rotation: $currentRotation, Roll: ${currentRoll.toDegrees()}, Pitch: ${currentPitch.toDegrees()}, Yaw: $currentYaw")
+        //Log.d (tag, "Current Rotation: $currentRotation, Roll: ${currentRoll.toDegrees()}, Pitch: ${currentPitch.toDegrees()}, Yaw: ${currentYaw.toDegrees()} ")
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
@@ -101,22 +102,6 @@ class MotionSensorListener(context: Context) : SensorEventListener {
 
     fun stop() {
         sensorManager.unregisterListener(this)
-    }
-
-    fun getCurrentRotation(): Int {
-        return currentRotation
-    }
-
-    fun getCurrentPitch(): Float {
-        return currentPitch.toDegrees()
-    }
-
-    fun getCurrentRoll(): Float {
-        return currentRoll.toDegrees()
-    }
-
-    fun getCurrentYaw(): Float {
-        return currentYaw
     }
 
     private fun Float.toDegrees(): Float {

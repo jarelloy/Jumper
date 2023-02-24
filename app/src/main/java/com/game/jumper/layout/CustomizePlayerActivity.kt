@@ -78,6 +78,7 @@ class CustomizePlayerActivity : AppCompatActivity() {
             override fun onItemClick(position: Int) {
                 imageSelected.setImageResource(powerUpData[position].image)
                 chosenPowerUp = powerUpData[position]
+                chosenPowerUp!!.id = position
                 playerPreferences.updatePrefId(chosenPowerUp!!.id)
                 playerPreferences.updatePrefImage(chosenPowerUp!!.image)
                 playerPreferences.updatePrefDesc(chosenPowerUp!!.description)
