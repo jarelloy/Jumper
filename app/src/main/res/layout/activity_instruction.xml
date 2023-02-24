@@ -45,6 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"
+        android:background="#FFF4D4"
         android:fontFamily="@font/minecraft"
         android:text="@string/backBtn"
         app:layout_constraintBottom_toBottomOf="parent"
