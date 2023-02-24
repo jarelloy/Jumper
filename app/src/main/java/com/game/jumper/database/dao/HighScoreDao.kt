@@ -13,7 +13,7 @@ interface HighScoreDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(highScore: HighScore)
 
-    @Query("SELECT * FROM high_scores_table ORDER BY highscore_score DESC")
+    @Query("SELECT * FROM high_scores_table ORDER BY highscore_score DESC LIMIT 10")
     fun getHighScores(): LiveData<List<HighScore>>
 
     @Query("SELECT COUNT(*) FROM high_scores_table")

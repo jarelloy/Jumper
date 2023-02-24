@@ -29,6 +29,7 @@
 
         <activity
             android:label="Scoreboard"
+            android:screenOrientation="portrait"
             android:name=".layout.ScoreboardActivity"
             android:screenOrientation="portrait"
             android:exported="true">
@@ -36,6 +37,7 @@
 
         <activity
             android:label="Instruction"
+            android:screenOrientation="portrait"
             android:name=".layout.InstructionActivity"
             android:screenOrientation="portrait"
             android:exported="true">
@@ -43,6 +45,7 @@
 
         <activity
             android:label="Customize Player"
+            android:screenOrientation="portrait"
             android:name=".layout.CustomizePlayerActivity"
             android:screenOrientation="portrait"
             android:exported="true">
@@ -50,6 +53,7 @@
 
         <activity
             android:label="Game"
+            android:screenOrientation="portrait"
             android:name=".layout.GameActivity"
             android:screenOrientation="portrait"
             android:exported="true">
