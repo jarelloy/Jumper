@@ -10,4 +10,5 @@ data class PowerUp(
     @PrimaryKey(autoGenerate = true) var id: Int = 0,
     @ColumnInfo(name = "power_up_image") val image: Int,
     @ColumnInfo(name = "power_up_desc") val description: String,
+    @ColumnInfo(name = "power_up_image_fp") val filepath: String
 )

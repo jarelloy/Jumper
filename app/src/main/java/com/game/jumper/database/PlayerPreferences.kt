@@ -9,6 +9,7 @@ class PlayerPreferences (context: Context) {
         const val _ID = "powerUpId"
         const val _IMAGE = "powerUpImage"
         const val _DESC = "powerUpDesc"
+        const val _FP = "powerUpFp"
     }
 
     fun getPrefId(): Int {
@@ -32,6 +33,13 @@ class PlayerPreferences (context: Context) {
     }
 
     fun updatePrefDesc(_desc : String) {
+        sharedPreferences.edit().putString(PreferencesKeys._DESC, _desc).apply()
+    }
+    fun getPrefFp(): String? {
+        return sharedPreferences.getString(PreferencesKeys._DESC, " ")
+    }
+
+    fun updatePrefFp(_desc : String) {
         sharedPreferences.edit().putString(PreferencesKeys._DESC, _desc).apply()
     }
 
