@@ -1,10 +1,10 @@
 package com.game.jumper.model
 
 /*************************************************************************
-\file   HighScoreAdapter.kt
-\author Chua Yip Xuan, 2001488
-\date   Feb 24, 2023
-\brief  This file consist of a class for HighScoreAdapter
+    \file   HighScoreAdapter.kt
+    \author Chua Yip Xuan, 2001488
+    \date   Feb 24, 2023
+    \brief  This file consist of a class for HighScoreAdapter
  *************************************************************************/
 import android.view.LayoutInflater
 import android.view.View

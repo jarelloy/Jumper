@@ -1,9 +1,9 @@
 package com.game.jumper.model
 /*************************************************************************
-\file   HighScoreViewModel.kt
-\author Chua Yip Xuan, 2001488
-\date   Feb 24, 2023
-\brief  This file consist of a class for HighScoreViewModel
+    \file   HighScoreViewModel.kt
+    \author Chua Yip Xuan, 2001488
+    \date   Feb 24, 2023
+    \brief  This file consist of a class for HighScoreViewModel
  *************************************************************************/
 
 import android.app.Application

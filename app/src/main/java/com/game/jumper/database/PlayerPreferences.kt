@@ -1,10 +1,10 @@
 package com.game.jumper.database
 
 /*************************************************************************
-\file   PlayerPreferences.kt
-\author Chua Yip Xuan, 2001488
-\date   Feb 24, 2023
-\brief  This file consist of a class for PlayerPreferences
+    \file   PlayerPreferences.kt
+    \author Chua Yip Xuan, 2001488
+    \date   Feb 24, 2023
+    \brief  This file consist of a class for PlayerPreferences
  *************************************************************************/
 import android.content.Context
 /*************************************************************************

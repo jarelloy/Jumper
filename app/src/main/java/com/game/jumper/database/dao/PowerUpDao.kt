@@ -1,10 +1,10 @@
 package com.game.jumper.database.dao
 
 /*************************************************************************
-\file   PowerUpDao.kt
-\author Chua Yip Xuan, 2001488
-\date   Feb 24, 2023
-\brief  This file consist of an interface for PowerUpDao
+    \file   PowerUpDao.kt
+    \author Chua Yip Xuan, 2001488
+    \date   Feb 24, 2023
+    \brief  This file consist of an interface for PowerUpDao
  *************************************************************************/
 import androidx.lifecycle.LiveData
 import androidx.room.Dao

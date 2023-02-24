@@ -1,9 +1,9 @@
 package com.game.jumper.model
 /*************************************************************************
-\file   PowerUpAdapter.kt
-\author Chua Yip Xuan, 2001488
-\date   Feb 24, 2023
-\brief  This file consist of a class for PowerUpAdapter
+    \file   PowerUpAdapter.kt
+    \author Chua Yip Xuan, 2001488
+    \date   Feb 24, 2023
+    \brief  This file consist of a class for PowerUpAdapter
  *************************************************************************/
 
 import android.view.LayoutInflater
