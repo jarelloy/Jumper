@@ -68,7 +68,8 @@ class CustomizePlayerActivity : AppCompatActivity() {
                         PowerUp(
                             playerPreferences.getPrefId(),
                             playerPreferences.getPrefImage(),
-                            it
+                            it,
+                            playerPreferences.getPrefFp()!!
                         )
                     }
                 //chosenPowerUp?.let { imageSelected.setImageResource(it.image) }
@@ -103,7 +104,7 @@ class CustomizePlayerActivity : AppCompatActivity() {
     fun loadPowerUpToDatabase(list : List<PowerUp> ) {
         for (i in list.indices)
         {
-            val entry = PowerUp(list[i].id, list[i].image, list[i].description)
+            val entry = PowerUp(list[i].id, list[i].image, list[i].description, list[i].filepath)
             powerUpViewModel?.insertPowerUp(entry)
             Log.d("Customize", list[i].image.toString())
             Log.d("Customize", list[i].description)
@@ -113,10 +114,10 @@ class CustomizePlayerActivity : AppCompatActivity() {
     fun loadPowerUps(): List<PowerUp>
     {
         return listOf<PowerUp>(
-            PowerUp(0, R.drawable.hat1, "Brella, it is fo’ drizzle."),
-            PowerUp(0, R.drawable.hat2, "You need a crown."),
-            PowerUp(0, R.drawable.hat3, "Hat’s how we roll."),
-            PowerUp(0, R.drawable.hat4, "Leaf me alone.")
+            PowerUp(0, R.drawable.hat1, "Brella, it is fo’ drizzle.", "art/hat1.png"),
+            PowerUp(0, R.drawable.hat2, "You need a crown.", "art/hat2.png"),
+            PowerUp(0, R.drawable.hat3, "Hat’s how we roll.", "art/hat3.png"),
+            PowerUp(0, R.drawable.hat4, "Leaf me alone.", "art/hat4.png")
         )
     }
 
