@@ -1,3 +1,11 @@
+/**
+ * Filename: LevelGenerator.kt
+ * author: Jeremiah Lim Eng Keng
+ * param: 2002408@sit.singaporetech.edu.sg
+ * param: 18 Feb 2022
+ * Brief: Implementation of LevelGenerator class
+ * @
+ */
 package com.game.jumper.level
 
 import android.graphics.Point
@@ -6,6 +14,13 @@ import com.game.jumper.level.Player
 import com.game.jumper.engine.GameObject
 
 class LevelGenerator {
+    /**
+     *  Creates the level by using getting the screen width, screen height and number of platforms
+     * 
+     *  @param screenWidth Width of the level size
+     *  @param screenHeight Height of the level size
+     *  @return returns a mutableList of platforms
+     */
     fun generateLevel(screenWidth: Int, screenHeight: Int, numPlatforms : Int = 30) : MutableList<Platform> {
     //fun generateLevel(screenWidth: Int, screenHeight: Int, playerPos: Point) : Array<Platform> {
         val platforms = mutableListOf<Platform>()

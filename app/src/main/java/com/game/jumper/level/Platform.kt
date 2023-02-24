@@ -1,3 +1,10 @@
+/**
+ * Filename: Platform.kt
+ * Author: Jeremiah Lim Eng Keng
+ * Email: 2002408@sit.singaporetech.edu.sg
+ * Date: 18 Feb 2022
+ */
+
 package com.game.jumper.level
 
 enum class PlatformType {
