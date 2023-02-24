@@ -1,7 +1,8 @@
 package com.game.jumper.layout
 
 import android.app.Dialog
-import android.content.Intent
+import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -10,18 +11,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.game.jumper.database.entity.HighScore
 import com.game.jumper.R
+import com.game.jumper.database.entity.HighScore
 import com.game.jumper.databinding.ActivityGameBinding
 import com.game.jumper.engine.GameGl
-import com.game.jumper.engine.GameLoopGl
 import com.game.jumper.graphics.JumperGLRenderer
 import com.game.jumper.graphics.JumperGLSurfaceView
 import com.game.jumper.model.HighScoreViewModel
-import org.w3c.dom.Text
 
 class GameActivity : AppCompatActivity() {
     private lateinit var binding: ActivityGameBinding
@@ -93,20 +91,25 @@ class GameActivity : AppCompatActivity() {
             }
         }
 
+        val typeface: Typeface = Typeface.createFromAsset(this.getAssets(), "font/minecraft.ttf")
 
         val scoreView = TextView(this)
         scoreView.text = "Score:"
         scoreView.textSize = 24f
         scoreView.x = 650f
         scoreView.y = 100f
+        scoreView.setTextColor(Color.WHITE)
+        scoreView.setTypeface(typeface)
         addContentView(scoreView, ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.WRAP_CONTENT))
 
         scoreText = TextView(this)
         scoreText!!.text = score.toString()
         scoreText!!.textSize = 24f
-        scoreText!!.x = 850f
+        scoreText!!.x = 870f
         scoreText!!.y = 100f
+        scoreText!!.setTextColor(Color.WHITE)
+        scoreText!!.setTypeface(typeface)
         addContentView(scoreText, ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.WRAP_CONTENT))
 
