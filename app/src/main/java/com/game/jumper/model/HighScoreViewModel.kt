@@ -1,4 +1,10 @@
 package com.game.jumper.model
+/*************************************************************************
+    \file   HighScoreViewModel.kt
+    \author Chua Yip Xuan, 2001488
+    \date   Feb 24, 2023
+    \brief  This file consist of a class for HighScoreViewModel
+ *************************************************************************/
 
 import android.app.Application
 import androidx.lifecycle.*
@@ -8,6 +14,9 @@ import com.game.jumper.database.repository.HighScoreRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+/*************************************************************************
+ *   /brief  A class for HighScoreViewModel
+ *************************************************************************/
 class HighScoreViewModel(application: Application) : AndroidViewModel(application) {
 
     private val highScoreRepo : HighScoreRepository

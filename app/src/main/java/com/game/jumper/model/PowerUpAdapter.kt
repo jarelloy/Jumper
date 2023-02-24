@@ -1,4 +1,10 @@
 package com.game.jumper.model
+/*************************************************************************
+    \file   PowerUpAdapter.kt
+    \author Chua Yip Xuan, 2001488
+    \date   Feb 24, 2023
+    \brief  This file consist of a class for PowerUpAdapter
+ *************************************************************************/
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +15,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.game.jumper.R
 import com.game.jumper.database.entity.PowerUp
 
+/*************************************************************************
+ *   /brief  A class for PowerUpAdapter
+ *************************************************************************/
 class PowerUpAdapter : RecyclerView.Adapter<PowerUpAdapter.MyViewHolder>(){
 
     private var powerUpList = emptyList<PowerUp>()
