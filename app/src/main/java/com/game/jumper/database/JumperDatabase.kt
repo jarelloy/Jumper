@@ -23,7 +23,6 @@ import com.game.jumper.database.entity.PowerUp
  *************************************************************************/
 @Database(entities = [Player::class, HighScore::class, PowerUp::class], version = 1, exportSchema = false)
 abstract class JumperDatabase : RoomDatabase() {
-
     abstract fun playerDao(): PlayerDao
     abstract fun highScoreDao(): HighScoreDao
     abstract fun powerUpDao(): PowerUpDao
@@ -32,6 +31,9 @@ abstract class JumperDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: JumperDatabase? = null
 
+        /*************************************************************************
+         *   /brief  This function returns the database as an instance
+         *************************************************************************/
         fun getDatabaseInstance(context: Context): JumperDatabase {
             synchronized(JumperDatabase::class) {
                 if (INSTANCE == null) {

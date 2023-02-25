@@ -17,12 +17,21 @@ import com.game.jumper.database.entity.PowerUp
  *************************************************************************/
 @Dao
 interface PowerUpDao {
+    /*************************************************************************
+     *   /brief  This function inserts a PowerUp entity into the database
+     *************************************************************************/
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(powerUp: PowerUp)
 
+    /*************************************************************************
+     *   /brief  This function gets the list of PowerUps from the database
+     *************************************************************************/
     @Query("SELECT * FROM power_ups_table")
     fun getAllPowerUps(): LiveData<List<PowerUp>>
 
+    /*************************************************************************
+     *   /brief  This function gets the count of PowerUps in the database
+     *************************************************************************/
     @Query("SELECT COUNT(*) FROM power_ups_table")
     suspend fun getCount(): Int
 }

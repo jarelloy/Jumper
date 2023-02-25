@@ -17,9 +17,15 @@ import com.game.jumper.database.entity.Player
  *************************************************************************/
 @Dao
 interface PlayerDao {
+    /*************************************************************************
+     *   /brief  This function inserts a PLayer entity into the database
+     *************************************************************************/
     @Insert
     fun insert(player: Player)
 
+    /*************************************************************************
+     *   /brief  This function gets the PLayer entity by the username
+     *************************************************************************/
     @Query("SELECT * FROM player_table WHERE user_name = :username")
     fun findByUsername(username: String): Player?
 }

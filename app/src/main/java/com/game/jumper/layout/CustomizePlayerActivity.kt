@@ -89,7 +89,7 @@ class CustomizePlayerActivity : AppCompatActivity() {
 
         val playerPreferences = PlayerPreferences.getInstance(this)
         if(playerPreferences.getPrefId() != null && playerPreferences.getPrefImage() != null
-            && playerPreferences.getPrefDesc() != null) {
+            && playerPreferences.getPrefDesc() != null && playerPreferences.getPrefFp() != null) {
                 chosenPowerUp = playerPreferences.getPrefDesc()
                     ?.let {
                         PowerUp(
@@ -99,7 +99,7 @@ class CustomizePlayerActivity : AppCompatActivity() {
                             playerPreferences.getPrefFp()!!
                         )
                     }
-                //chosenPowerUp?.let { imageSelected.setImageResource(it.image) }
+                chosenPowerUp?.let { imageSelected.setImageResource(it.image) }
         }
 
         //when clicked, the image will appear at the top showing users what has been selected,
@@ -113,6 +113,7 @@ class CustomizePlayerActivity : AppCompatActivity() {
                 playerPreferences.updatePrefId(chosenPowerUp!!.id)
                 playerPreferences.updatePrefImage(chosenPowerUp!!.image)
                 playerPreferences.updatePrefDesc(chosenPowerUp!!.description)
+                playerPreferences.updatePrefFp(chosenPowerUp!!.filepath)
             }
         })
 

@@ -28,14 +28,18 @@ class PowerUpViewModel (application: Application) : AndroidViewModel(application
         powerUpRepo = PowerUpRepository(powerUpDao)
         powerUps = powerUpRepo.getPowerUps
     }
-
+    /*************************************************************************
+     *   /brief  This function inserts the PowerUp into the database
+     *************************************************************************/
     fun insertPowerUp(powerUp: PowerUp)
     {
         viewModelScope.launch {
             powerUpRepo.insertPowerUp(powerUp)
         }
     }
-
+    /*************************************************************************
+     *   /brief  This function gets the count of the PowerUp from the database
+     *************************************************************************/
     fun getCount(): Int {
         return powerUpRepo.getCount()
     }

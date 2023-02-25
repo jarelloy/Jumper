@@ -27,14 +27,18 @@ class HighScoreViewModel(application: Application) : AndroidViewModel(applicatio
         highScoreRepo = HighScoreRepository(highScoreDao)
         highScores = highScoreRepo.getHighScores
     }
-
+    /*************************************************************************
+     *   /brief  This function inserts the HighScore into the database
+     *************************************************************************/
     fun insertHighScore(highScore: HighScore)
     {
         viewModelScope.launch (Dispatchers.IO){
             highScoreRepo.insertHighScore(highScore)
         }
     }
-
+    /*************************************************************************
+     *   /brief  This function gets the count of HighScore from the database
+     *************************************************************************/
     fun getCount(): Int {
         return highScoreRepo.getCount()
     }

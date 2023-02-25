@@ -20,12 +20,22 @@ import kotlinx.coroutines.flow.Flow
 *************************************************************************/
 @Dao
 interface HighScoreDao {
+    /*************************************************************************
+     *   /brief  This function inserts a HighScore entity into database
+     *              and ignores any repeated conflict
+     *************************************************************************/
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(highScore: HighScore)
 
+    /*************************************************************************
+     *   /brief  This function gets all the HighScores in the database
+     *************************************************************************/
     @Query("SELECT * FROM high_scores_table ORDER BY highscore_score DESC LIMIT 10")
     fun getHighScores(): LiveData<List<HighScore>>
 
+    /*************************************************************************
+     *   /brief  This function gets the count of the database
+     *************************************************************************/
     @Query("SELECT COUNT(*) FROM high_scores_table")
     suspend fun getCount(): Int
 }
