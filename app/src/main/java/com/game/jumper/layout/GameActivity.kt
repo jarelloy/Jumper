@@ -21,7 +21,6 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
@@ -30,17 +29,15 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.game.jumper.R
-import com.game.jumper.database.entity.HighScore
 import com.game.jumper.databinding.ActivityGameBinding
 import com.game.jumper.engine.GameGl
+import com.game.jumper.game.SampleScene
 import com.game.jumper.graphics.JumperGLRenderer
-import com.game.jumper.graphics.JumperGLSurfaceView
 import com.game.jumper.model.HighScoreViewModel
 
 class GameActivity : AppCompatActivity() {
     private lateinit var binding: ActivityGameBinding
     private lateinit var game : GameGl
-    private lateinit var glSurfaceView : JumperGLSurfaceView
     private lateinit var highScoreViewModel : HighScoreViewModel
     private var glRenderer = JumperGLRenderer(this)
     private lateinit var pauseDialog: Dialog
@@ -68,7 +65,6 @@ class GameActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         game = GameGl(this)
-        glSurfaceView = JumperGLSurfaceView(this)
         setContentView(game)
 
         //Initializing the highscore to be shown in game

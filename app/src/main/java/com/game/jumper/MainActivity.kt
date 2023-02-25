@@ -10,15 +10,11 @@ package com.game.jumper
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatDelegate
 import com.game.jumper.databinding.ActivityMainBinding
-import com.game.jumper.graphics.JumperGLSurfaceView
-import com.game.jumper.engine.GameGl
 import com.game.jumper.layout.CustomizePlayerActivity
 import com.game.jumper.layout.GameActivity
 import com.game.jumper.layout.InstructionActivity
 import com.game.jumper.layout.ScoreboardActivity
-import com.google.android.material.internal.ContextUtils.getActivity
 import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {

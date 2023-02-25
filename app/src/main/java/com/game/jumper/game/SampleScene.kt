@@ -201,7 +201,7 @@ private fun checkCollided( playerPos : Vector2, playerVel:Vector2, platformPos :
     val playerVector = Vector2(playerPos.x - platformPos.x, playerPos.y - platformPos.y - .5f)
     val upVector = Vector2(0f,1f)
 
-    val dot = upVector.dotProduct((playerVector))
+    val dot = upVector.Dot((playerVector))
     // check if it is above the platform first
     if ((playerPos.x < (platformPos.x + 1.5f) && playerPos.x > (platformPos.x - 1.5f)) && dot >= -1f) {
         // Check if the player on next frame will be below the platform

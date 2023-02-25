@@ -1,13 +1,26 @@
+/*************************************************************************
+\file   GameLoopGl.kt
+\author Cruz Rolly Matthew Capiral, 2000798
+\date   Feb 24, 2023
+\brief  This file contains the implementation of the game loop
+ *************************************************************************/
 package com.game.jumper.engine
 
 import android.content.Context
 import android.os.Looper
-import android.util.Log
-import android.view.SurfaceHolder
 import com.game.jumper.game.SampleScene
 import com.game.jumper.graphics.JumperGLRenderer
 import com.game.jumper.motionSensor.MotionSensorListener
+import kotlin.reflect.KClass
 
+/**
+ *  Game loop class
+ *
+ *  This class run as a thread where the entire game is running
+ *
+ *  @param context the context of the activity
+ *  @param renderer reference to the graphics renderer
+ */
 class GameLoopGl(context: Context, var renderer: JumperGLRenderer) : Thread() {
 
     private lateinit var scene : SampleScene
@@ -22,7 +35,11 @@ class GameLoopGl(context: Context, var renderer: JumperGLRenderer) : Thread() {
         private set
     var lastTime = 0.0
 
-    fun startLoop() {
+    /**
+     * Stars the game loop thread by first loading the scene
+     */
+    fun startLoop()
+    {
         scene = SampleScene(context)
         isRunning = true
         renderer.loadScene(scene)
@@ -30,15 +47,27 @@ class GameLoopGl(context: Context, var renderer: JumperGLRenderer) : Thread() {
         start()
     }
 
+    /**
+     * Returns the context stored in the class
+     */
     fun getCurrentContext() : Context {
         return context
     }
 
+    /**
+     * Sets the pause value of the scene based on [pause]
+     */
     fun setScenePause(pause : Boolean) {
         //scene = SampleScene(context)
         scene.paused = pause
     }
 
+    /**
+     * Run the gameloop thread
+     *
+     * While the scene is running, calculate the delta time and update the scene and render draw
+     * according to the delta time
+     */
     override fun run() {
         super.run()
         // time and cycle count variables
@@ -88,9 +117,6 @@ class GameLoopGl(context: Context, var renderer: JumperGLRenderer) : Thread() {
                 updateCount = 0
                 frameCount = 0
                 startTime = System.currentTimeMillis()
-                Log.d("Average UPS: ", averageUPS.toString())
-                Log.d("Average FPS: ", averageFPS.toString())
-                Log.d("DeltaTime", deltaTime.toString())
             }
         }
     }

@@ -9,6 +9,7 @@ import android.opengl.Matrix
 import android.util.Log
 import com.game.jumper.engine.GameGl
 import com.game.jumper.engine.GameLoopGl
+import com.game.jumper.engine.Scene
 import com.game.jumper.game.SampleScene
 import com.game.jumper.math.Vector2
 import javax.microedition.khronos.egl.EGLConfig
