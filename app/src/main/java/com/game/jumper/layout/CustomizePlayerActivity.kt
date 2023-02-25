@@ -1,3 +1,19 @@
+/*!*****************************************************************************
+\file			CustomizePlayerActivity.kt
+\author			Jarell Ow Yong
+\par DP email:	o.yongjarell@digipen.edu
+\par Course:	CSD3156
+\par Project:	Jumper Game
+\date			25/2/2023
+\brief
+
+This file contains the function definition used in Jumper for CustomizePlayerActivity
+
+\copyright	Copyright (C) 2021 DigiPen Institute of Technology.
+			Reproduction or disclosure of this file or its contents without the
+			prior written consent of DigiPen Institute of Technology is prohibited.
+*******************************************************************************/
+
 package com.game.jumper.layout
 
 import android.content.Intent
@@ -28,11 +44,19 @@ class CustomizePlayerActivity : AppCompatActivity() {
     companion object{
         var chosenPowerUp : PowerUp? = null
     }
+
+    /*
+    onCreate function override to be called when first starting the activity
+    This function uses the activity_customize_player.xml file for the necessary layout.
+    This function also calls for the database and allows user to set the player's cosmetic before
+    the game starts
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCustomizePlayerBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_customize_player)
 
+        // initialize all buttons and recycler view and database
         val customizebackBtn : Button = findViewById(R.id.customizebackBtn)
         val imageSelected : ImageView = findViewById(R.id.selectedImage)
 
@@ -78,6 +102,9 @@ class CustomizePlayerActivity : AppCompatActivity() {
                 //chosenPowerUp?.let { imageSelected.setImageResource(it.image) }
         }
 
+        //when clicked, the image will appear at the top showing users what has been selected,
+        //this will also confirms the user's selection and will be shown on the player when
+        //the game starts
         powerUpAdapter.setOnItemClickListener(object : PowerUpAdapter.OnItemClickListener {
             override fun onItemClick(position: Int) {
                 imageSelected.setImageResource(powerUpData[position].image)
@@ -91,20 +118,7 @@ class CustomizePlayerActivity : AppCompatActivity() {
 
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-//        val recyclerView = findViewById<RecyclerView>(R.id.scoreboardRecycle)
-//        val scrollPosition = recyclerView.layoutManager?.onSaveInstanceState()
-//        outState.putParcelable("scroll_position", scrollPosition)
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-//        val recyclerView = findViewById<RecyclerView>(R.id.scoreboardRecycle)
-//        val scrollPosition = savedInstanceState.getParcelable<Parcelable>("scroll_position")
-//        recyclerView.layoutManager?.onRestoreInstanceState(scrollPosition)
-    }
-
+    //Functions gives the player power ups according to what was selected
     fun loadPowerUpToDatabase(list : List<PowerUp> ) {
         for (i in list.indices)
         {
@@ -115,6 +129,7 @@ class CustomizePlayerActivity : AppCompatActivity() {
         }
     }
 
+    //Function shows the list of power ups available for user to select
     fun loadPowerUps(): List<PowerUp>
     {
         return listOf<PowerUp>(

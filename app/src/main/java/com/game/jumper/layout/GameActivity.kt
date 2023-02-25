@@ -1,3 +1,19 @@
+/*!*****************************************************************************
+\file			GameActivity.kt
+\author			Jarell Ow Yong
+\par DP email:	o.yongjarell@digipen.edu
+\par Course:	CSD3156
+\par Project:	Jumper Game
+\date			25/2/2023
+\brief
+
+This file contains the function definition used in Jumper for GameActivity
+
+\copyright	Copyright (C) 2021 DigiPen Institute of Technology.
+			Reproduction or disclosure of this file or its contents without the
+			prior written consent of DigiPen Institute of Technology is prohibited.
+*******************************************************************************/
+
 package com.game.jumper.layout
 
 import android.app.Dialog
@@ -40,6 +56,12 @@ class GameActivity : AppCompatActivity() {
         }
     }
 
+    /*
+    onCreate function override to be called when first starting the game activity
+    This function uses the activity_game.xml file for the necessary layout.
+    This function also stores the highscore whenever the player loses and shows a pause dialog
+    when the game is paused
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityGameBinding.inflate(layoutInflater)
@@ -49,13 +71,16 @@ class GameActivity : AppCompatActivity() {
         glSurfaceView = JumperGLSurfaceView(this)
         setContentView(game)
 
+        //Initializing the highscore to be shown in game
         highScoreViewModel = ViewModelProvider(this).get(HighScoreViewModel::class.java)
 
         val pauseMenu = TextView(this)
+        //Initializing the dialog system from android
         pauseDialog = Dialog(this)
         pauseDialog.setContentView(R.layout.popup_pause)
         pauseDialog.setCancelable(false)
 
+        //Creating a pause button
         val pauseBtn = Button(this)
         pauseBtn.text = "Pause"
         pauseBtn.textSize = 24f
@@ -67,15 +92,18 @@ class GameActivity : AppCompatActivity() {
         var pauseMenuAdded = false // Set a flag to keep track of whether the pauseMenu view has been added
 
         pauseBtn.setOnClickListener {
+            //disable the pause button when selected
             pauseBtn.isEnabled = false
             pauseBtn.alpha = 0f
 
+            //set game to pause, delta time = 0
             game.gameLoop.setScenePause(true)
 
             if (!pauseMenuAdded) {
                 pauseMenuAdded = true
                 pauseDialog.show()
 
+                // touch anywhere on the popup to unpause the game
                 pauseDialog.findViewById<View>(R.id.pause_popup)?.setOnTouchListener { _, event ->
                     if (event.action == MotionEvent.ACTION_DOWN) {
                         pauseDialog.dismiss()
@@ -93,6 +121,7 @@ class GameActivity : AppCompatActivity() {
 
         val typeface: Typeface = Typeface.createFromAsset(this.getAssets(), "font/minecraft.ttf")
 
+        // Print out the score at the top right of the screen
         val scoreView = TextView(this)
         scoreView.text = "Score:"
         scoreView.textSize = 24f
@@ -113,15 +142,6 @@ class GameActivity : AppCompatActivity() {
         addContentView(scoreText, ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.WRAP_CONTENT))
 
-        //var thread = object : Thread() {
-        //    override fun run() {
-        //            runOnUiThread {
-        //                scoreText!!.text = score.toString()
-        //            }
-        //        }
-        //    }
-        //}
-        //thread.start()
         runOnUiThread {
             runnable = Runnable {
 
@@ -139,16 +159,5 @@ class GameActivity : AppCompatActivity() {
         //Keep it running
         val handler = Handler()
         handler.postDelayed(runnable, timeToWait)
-    }
-
-    fun insertHighScoreToDatabase(userName: String, userScore: Int ) {
-        val entry = HighScore(0, userName , userScore)
-        highScoreViewModel.insertHighScore(entry)
-        //Toast.makeText(this, "Successfully added!", Toast.LENGTH_SHORT).show()
-        Log.d("GameActivity", userScore.toString())
-    }
-
-    override fun onBackPressed() {
-        /*Do Nothing*/
     }
 }
