@@ -52,6 +52,9 @@ open class JumperQuad {
     val vtxCount: Int = quadCoords.size / coordsPerVtx
     val vtxStride: Int = coordsPerVtx * 4
 
+    /**
+     * constructor to create a JumperQuad object
+     */
     constructor(context: Context, texture: String = "") {
 
         gameContext = context
@@ -69,6 +72,7 @@ open class JumperQuad {
         // set buffer to read first coord
         vtxBuffer.position(0)
 
+        // repeat for texture buffer
         texBuffer =
         ByteBuffer.allocateDirect(texCoords.size * 4).run {
             order(ByteOrder.nativeOrder())
@@ -87,10 +91,14 @@ open class JumperQuad {
         GLES20.glAttachShader(shaderProgram, fragShader)
         GLES20.glLinkProgram(shaderProgram)
 
+        // check if texture exists and load if it does
         if (!texName.isEmpty())
             texDataHandle = loadTexture(texName)
     }
 
+    /**
+     * function to load and bind textures to the JumperQuad object
+     */
     fun loadTexture(texture: String): Int {
         val textureHandle = IntArray(1)
         GLES20.glGenTextures(1, textureHandle, 0)
@@ -117,6 +125,7 @@ open class JumperQuad {
                 GLES20.GL_NEAREST
             )
 
+            // enable blending for texture alpha
             GLES20.glEnable(GLES20.GL_BLEND);
             GLES20.glBlendFunc (GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
 
@@ -132,6 +141,9 @@ open class JumperQuad {
         return textureHandle[0]
     }
 
+    /**
+     * function to draw non-textured JumperQuads
+     */
     fun draw(mvpMatrix: FloatArray) {
 
         // Add program to OpenGL ES environment
@@ -175,6 +187,9 @@ open class JumperQuad {
         }
     }
 
+    /**
+     * function to non-textured JumperQuads
+     */
     fun drawTextured(mvpMatrix: FloatArray) {
 
         // Add program to OpenGL ES environment
@@ -245,9 +260,5 @@ open class JumperQuad {
             GLES20.glDisableVertexAttribArray(texCoordsHandle)
             GLES20.glDisableVertexAttribArray(it)
         }
-    }
-
-    fun updateTexture(text : Int) {
-        texDataHandle = text
     }
 }

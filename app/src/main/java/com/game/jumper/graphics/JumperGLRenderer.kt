@@ -38,6 +38,9 @@ open class JumperGLRenderer(context: Context) : GLSurfaceView.Renderer {
     private val viewMatrix = FloatArray(16)
 
     companion object {
+        /**
+         * helper function to load shaders
+         */
         fun loadShader(type: Int, shaderCode: String): Int {
             // create a shader based on type
             var shader: Int = GLES20.glCreateShader(type)
@@ -51,23 +54,38 @@ open class JumperGLRenderer(context: Context) : GLSurfaceView.Renderer {
 
         var camPos: Vector2 = Vector2(0f, 0f)
 
+        /**
+         * setter function for camera
+         */
         fun setCamPos(x: Float, y: Float) {
             camPos = Vector2(x, y)
         }
     }
 
+    /**
+     * setter function for current gameloop
+     */
     fun loadGameLoop(gameLoop: GameLoopGl) {
         gameLoopGl = gameLoop
     }
 
+    /**
+     * setter function for scene to load
+     */
     fun loadScene(newScene: SampleScene) {
         scene = newScene
     }
 
+    /**
+     * setter function for surface view
+     */
     fun loadView(view: GameGl) {
         surfaceView = view
     }
 
+    /**
+     * override function to handle actions when a surface view is created
+     */
     override fun onSurfaceCreated(gl: GL10?, config: EGLConfig?) {
         // set bg color to black
         GLES20.glClearColor(0.24f, 0.26f, .44f, 1.0f)
@@ -80,6 +98,9 @@ open class JumperGLRenderer(context: Context) : GLSurfaceView.Renderer {
         gameLoopGl.startLoop()
     }
 
+    /**
+     * override function to handle actions when changes are made to the surface
+     */
     override fun onSurfaceChanged(gl: GL10?, width: Int, height: Int) {
         GLES20.glViewport(0, 0, width, height)
         val ratio: Float = width.toFloat() / height.toFloat()
@@ -95,6 +116,9 @@ open class JumperGLRenderer(context: Context) : GLSurfaceView.Renderer {
         Matrix.multiplyMM(vPMatrix, 0, projectionMatrix, 0, viewMatrix, 0)
     }
 
+    /**
+     * override function to handle rendering each frame
+     */
     override fun onDrawFrame(gl: GL10?) {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT)
 
@@ -103,6 +127,9 @@ open class JumperGLRenderer(context: Context) : GLSurfaceView.Renderer {
         //Log.d("Test", "Yo")
     }
 
+    /**
+     * simple draw function to draw a JumperQuad
+     */
     fun draw()
     {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT)
@@ -111,6 +138,9 @@ open class JumperGLRenderer(context: Context) : GLSurfaceView.Renderer {
         mQuad.drawTextured(vPMatrix)
     }
 
+    /**
+     * update function handling the game's rendering each frame
+     */
     fun update()
     {
         Matrix.setLookAtM(viewMatrix, 0, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1f, 0f)

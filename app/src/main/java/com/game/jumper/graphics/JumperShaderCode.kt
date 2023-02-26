@@ -12,6 +12,9 @@ package com.game.jumper.graphics
  */
 class JumperShaderCode {
     companion object {
+        /**
+         * static variable containing vertex shader code
+         */
         val vtxShaderCode: String =
                     // This matrix member variable provides a hook to manipulate
                     // the coordinates of the objects that use this vertex shader
@@ -26,6 +29,10 @@ class JumperShaderCode {
                     // for the matrix multiplication product to be correct.
                     "  gl_Position = uMVPMatrix * vPosition;" +
                     "}"
+
+        /**
+         * static variable containing fragment shader code
+         */
         val fragShaderCode: String =
                     "precision mediump float;" +
                     "uniform vec4 vColor;" +
