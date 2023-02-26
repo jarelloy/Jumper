@@ -1,5 +1,15 @@
+/*************************************************************************
+\file   JumperShaderCode.kt
+\author Leong Cheng Onn Darryl, 2000686
+\date   Feb 24, 2023
+\brief  This file contains the vertex and fragment shaders for rendering
+        purposes
+ *************************************************************************/
 package com.game.jumper.graphics
 
+/**
+ * Used to write shader code for rendering use
+ */
 class JumperShaderCode {
     companion object {
         val vtxShaderCode: String =

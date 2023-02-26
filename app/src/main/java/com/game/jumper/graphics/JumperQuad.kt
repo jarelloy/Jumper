@@ -1,3 +1,10 @@
+/*************************************************************************
+\file   JumperQuad.kt
+\author Leong Cheng Onn Darryl, 2000686
+\date   Feb 24, 2023
+\brief  This file contains the implementation of the quads used to draw
+        gameobjects
+ *************************************************************************/
 package com.game.jumper.graphics
 
 import android.content.Context
@@ -8,7 +15,9 @@ import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.FloatBuffer
 
-
+/**
+ * Handles creation of quad objects used to draw gameobjects with
+ */
 open class JumperQuad {
     var gameContext: Context
 

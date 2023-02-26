@@ -1,3 +1,10 @@
+/*************************************************************************
+\file   JumperGLRenderer.kt
+\author Leong Cheng Onn Darryl, 2000686
+\date   Feb 24, 2023
+\brief  This file contains the implementation of the game renderer
+        using OpenGL ES
+ *************************************************************************/
 package com.game.jumper.graphics
 
 import android.content.Context
@@ -15,6 +22,9 @@ import com.game.jumper.math.Vector2
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
 
+/**
+ * Handles the drawing of gameobjects via OpenGL ES
+ */
 open class JumperGLRenderer(context: Context) : GLSurfaceView.Renderer {
     lateinit var mQuad: JumperQuad
     lateinit var gameLoopGl: GameLoopGl
@@ -44,10 +54,6 @@ open class JumperGLRenderer(context: Context) : GLSurfaceView.Renderer {
         fun setCamPos(x: Float, y: Float) {
             camPos = Vector2(x, y)
         }
-
-       /* fun getCamPos(): Vector2 {
-            return camPos
-        }*/
     }
 
     fun loadGameLoop(gameLoop: GameLoopGl) {
