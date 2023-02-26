@@ -31,7 +31,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.game.jumper.R
 import com.game.jumper.databinding.ActivityGameBinding
 import com.game.jumper.engine.GameGl
-import com.game.jumper.game.SampleScene
 import com.game.jumper.graphics.JumperGLRenderer
 import com.game.jumper.model.HighScoreViewModel
 

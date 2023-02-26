@@ -8,16 +8,12 @@
 package com.game.jumper.graphics
 
 import android.content.Context
-import android.graphics.BitmapFactory
 import android.opengl.GLES20
 import android.opengl.GLSurfaceView
-import android.opengl.GLUtils
 import android.opengl.Matrix
-import android.util.Log
 import com.game.jumper.engine.GameGl
 import com.game.jumper.engine.GameLoopGl
-import com.game.jumper.engine.Scene
-import com.game.jumper.game.SampleScene
+import com.game.jumper.game.JumperScene
 import com.game.jumper.math.Vector2
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
@@ -28,7 +24,7 @@ import javax.microedition.khronos.opengles.GL10
 open class JumperGLRenderer(context: Context) : GLSurfaceView.Renderer {
     lateinit var mQuad: JumperQuad
     lateinit var gameLoopGl: GameLoopGl
-    lateinit var scene : SampleScene
+    lateinit var scene : JumperScene
     lateinit var surfaceView: GameGl
 
     var gameContext: Context = context
@@ -72,7 +68,7 @@ open class JumperGLRenderer(context: Context) : GLSurfaceView.Renderer {
     /**
      * setter function for scene to load
      */
-    fun loadScene(newScene: SampleScene) {
+    fun loadScene(newScene: JumperScene) {
         scene = newScene
     }
 

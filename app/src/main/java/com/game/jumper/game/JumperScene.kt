@@ -26,7 +26,7 @@ import com.game.jumper.layout.GameActivity
 import com.game.jumper.layout.PlayerLoseActivity
 import com.game.jumper.layout.CustomizePlayerActivity
 
-class SampleScene(context: Context) : Scene(context) {
+class JumperScene(context: Context) : Scene(context) {
     private var hatObject : GameObject
     private var levelObject : GameObject
 

@@ -8,10 +8,8 @@ package com.game.jumper.engine
 
 import android.content.Context
 import android.os.Looper
-import com.game.jumper.game.SampleScene
+import com.game.jumper.game.JumperScene
 import com.game.jumper.graphics.JumperGLRenderer
-import com.game.jumper.motionSensor.MotionSensorListener
-import kotlin.reflect.KClass
 
 /**
  *  Game loop class
@@ -23,7 +21,7 @@ import kotlin.reflect.KClass
  */
 class GameLoopGl(context: Context, var renderer: JumperGLRenderer) : Thread() {
 
-    private lateinit var scene : SampleScene
+    private lateinit var scene : JumperScene
     private var context = context
 
     private var isRunning = false
@@ -40,7 +38,7 @@ class GameLoopGl(context: Context, var renderer: JumperGLRenderer) : Thread() {
      */
     fun startLoop()
     {
-        scene = SampleScene(context)
+        scene = JumperScene(context)
         isRunning = true
         renderer.loadScene(scene)
 
