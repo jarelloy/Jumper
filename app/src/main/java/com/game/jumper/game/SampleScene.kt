@@ -1,16 +1,15 @@
+/*************************************************************************
+\file   SampleScene.kt
+\author Jeremiah Lim Eng Keng, 2002408, Cruz Rolly Matthew Capiral, 2000798
+\date   Feb 18, 2023
+\brief  This file contains the implementation for the SampleScene
+ *************************************************************************/
 package com.game.jumper.game
 
-import android.app.AlertDialog
-import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
-import android.util.Log
-import android.view.KeyEvent
 import androidx.core.content.ContextCompat.startActivity
-import androidx.lifecycle.ViewModelProvider
-import com.game.jumper.R
-import com.game.jumper.databinding.ActivityGameBinding
 import com.game.jumper.engine.GameObject
 import com.game.jumper.engine.Scene
 import com.game.jumper.game.scripts.PlatformScript
@@ -25,12 +24,10 @@ import com.game.jumper.game.scripts.HatScript
 import com.game.jumper.graphics.JumperGLRenderer
 import com.game.jumper.layout.GameActivity
 import com.game.jumper.layout.PlayerLoseActivity
-import com.game.jumper.model.HighScoreViewModel
 import com.game.jumper.layout.CustomizePlayerActivity
 
 class SampleScene(context: Context) : Scene(context) {
     private var hatObject : GameObject
-    private val gameBinding: GameActivity? = context as? GameActivity
     private var levelObject : GameObject
 
     private var playerObj : GameObject
@@ -50,8 +47,6 @@ class SampleScene(context: Context) : Scene(context) {
 
     private var isDie : Boolean = false
 
-    private lateinit var deathDialog : Dialog
-
     init {
         gyroscopeRotationTracker.start()
         width = Resources.getSystem().displayMetrics.widthPixels
@@ -68,8 +63,8 @@ class SampleScene(context: Context) : Scene(context) {
         for (i in platform.indices) {
             levelObject = createNewObject()
             levelObject.name = "Platform"
-            levelObject.transform.position.x = (platform[i].x.toFloat() / width  - .5f) * 10
-            levelObject.transform.position.y = (platform[i].y.toFloat() / height - .5f) * 20
+            levelObject.transform.position.x = (platform[i].x / width  - .5f) * 10
+            levelObject.transform.position.y = (platform[i].y / height - .5f) * 20
             levelObject.transform.scale.x = platform[i].sizeX
             levelObject.transform.scale.y = platform[i].sizeY
             levelObject.addScript<PlatformScript>()
@@ -105,9 +100,8 @@ class SampleScene(context: Context) : Scene(context) {
         hatObject.addScript<HatScript>()
 
         if (CustomizePlayerActivity.chosenPowerUp?.filepath  != null) {
-            var quadHat : JumperQuad
 
-            quadHat = JumperQuad(context, CustomizePlayerActivity.chosenPowerUp?.filepath.toString())
+            val quadHat = JumperQuad(context, CustomizePlayerActivity.chosenPowerUp?.filepath.toString())
 
             HatScript.hat = false
 
@@ -117,7 +111,6 @@ class SampleScene(context: Context) : Scene(context) {
             }
 
             hatObject.quad = quadHat
-            Log.d("hat Texture", "${CustomizePlayerActivity.chosenPowerUp?.image.toString()}")
         }
 
     }
@@ -188,7 +181,6 @@ class SampleScene(context: Context) : Scene(context) {
         }
 
         if (isDie) {
-            //TODO: if DIE go game over
             paused = true
 
             val intent = Intent(context, PlayerLoseActivity::class.java)

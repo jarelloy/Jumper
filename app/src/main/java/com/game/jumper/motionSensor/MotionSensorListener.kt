@@ -1,3 +1,10 @@
+/*************************************************************************
+\file   MotionSensorListener.kt
+\author Jeremiah Lim Eng Keng, 2002408
+\date   Feb 15, 2023
+\brief  This file contains the implementation for the motionSensorListener
+ *************************************************************************/
+
 package com.game.jumper.motionSensor
 
 import android.content.Context
@@ -11,6 +18,10 @@ import kotlin.math.atan2
 import kotlin.math.pow
 import kotlin.math.sqrt
 
+/**
+ *  The MotionSensorListener Class will be able to talk to the device's Gyroscope and accelerometer
+ *  to get the rotation of the phone
+ */
 class MotionSensorListener(context: Context) : SensorEventListener {
     private val sensorManager: SensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
     private val accelerometer: Sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
@@ -24,12 +35,14 @@ class MotionSensorListener(context: Context) : SensorEventListener {
     var currentPitch: Float = 0f
     var currentRoll: Float = 0f
     var currentYaw: Float = 0f
-    private val NS2S = 1.0f / 1000000000.0f
+    private val NS2S = 1.0f / 1000000000.0f // Nano seconds to seconds
 
+    /**
+     * companion object for parsing values
+     */
     companion object {
         var currentRotation: Int = 0
     }
-
 
     private val tag = "SensorReading"
 

@@ -1,10 +1,3 @@
-/**
- * Filename: MainActivity.kt
- * Author: Jarell Ow Yong
- * Email: @sit.singaporetech.edu.sg
- * Date: 10 Feb 2022
- */
-
 package com.game.jumper
 
 import android.content.Intent

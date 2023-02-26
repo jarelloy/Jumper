@@ -1,17 +1,18 @@
-/**
- * Filename: Platform.kt
- * Author: Jeremiah Lim Eng Keng
- * Email: 2002408@sit.singaporetech.edu.sg
- * Date: 18 Feb 2022
- */
+/*************************************************************************
+\file   Platform.kt
+\author Jeremiah Lim Eng Keng, 2002408
+\date   Feb 20, 2023
+\brief  This file contains the implementation of the Platform object
+ *************************************************************************/
 
 package com.game.jumper.level
 
-enum class PlatformType {
-    NORMAL, BREAKABLE
-}
-
-class Platform (val x: Float, val y: Float, val type: PlatformType = PlatformType.NORMAL) {
+/**
+ * Platfrom object
+ * @param x Position of the platform
+ * @param y Position of the platform
+ */
+class Platform (val x: Float, val y: Float) {
     val sizeX : Float = 3f
     val sizeY : Float = 0.5f
     var isJumped : Boolean = false
