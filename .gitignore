@@ -16,9 +16,9 @@ gen/
 out/
 
 # Gradle files
-.gradle
-.gradle/
-build/
+#.gradle
+#.gradle/
+#build/
 
 # Local configuration file (sdk path, etc)
 local.properties
@@ -46,11 +46,11 @@ local.properties
 hs_err_pid*
 
 # Android Studio
-/*/build/
-/*/local.properties
-/*/out
-/*/*/build
-/*/*/production
+#/*/build/
+#/*/local.properties
+#/*/out
+#/*/*/build
+#/*/*/production
 *.ipr
 *~
 *.swp
